@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegCircle } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 
@@ -12,18 +11,16 @@ const TicTacToe = () => {
     ["", "", ""],
     ["", "", ""],
   ]);
+  const [isHumanTurn, setIsHumanTurn] = useState(true);
 
   const checkWinner = () => {
     const lines = [
-      // horizontal
       [0, 1, 2],
       [3, 4, 5],
       [6, 7, 8],
-      // vertical
       [0, 3, 6],
       [1, 4, 7],
       [2, 5, 8],
-      // diagonal
       [0, 4, 8],
       [2, 4, 6],
     ];
@@ -37,182 +34,103 @@ const TicTacToe = () => {
       ) {
         setWinner(board[a % 3][Math.floor(a / 3)]);
         return;
-      } else if (
-        // Check for draw
-        board[0][0] &&
-        board[0][1] &&
-        board[0][2] &&
-        board[1][0] &&
-        board[1][1] &&
-        board[1][2] &&
-        board[2][0] &&
-        board[2][1] &&
-        board[2][2]
-      ) {
-        setWinner("Draw");
-        return;
       }
+    }
+
+    if (board.flat().every((cell) => cell !== "")) {
+      setWinner("Draw");
     }
   };
 
-  const handleClick = (x, y) => {
-    if (board[x][y] || winner) return;
+  const makeAIMove = () => {
+    let emptyCells = [];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (board[i][j] === "") {
+          emptyCells.push([i, j]);
+        }
+      }
+    }
 
-    const newBoard = [...board];
-    newBoard[x][y] = player;
-    setBoard(newBoard);
-    setPlayer(player === "X" ? "O" : "X");
+    if (emptyCells.length > 0) {
+      const randomCell =
+        emptyCells[Math.floor(Math.random() * emptyCells.length)];
+      let newBoard = [...board];
+      newBoard[randomCell[0]][randomCell[1]] = "O";
+      setBoard(newBoard);
+      setPlayer("X");
+      setIsHumanTurn(true);
+    }
+  };
+
+  useEffect(() => {
+    if (!isHumanTurn && winner === null) {
+      makeAIMove();
+    }
+  }, [isHumanTurn]);
+
+  useEffect(() => {
     checkWinner();
-  };
-
-  const handleReset = () => {
-    setPlayer("X");
-    setWinner(null);
-    setBoard([
-      ["", "", ""],
-      ["", "", ""],
-      ["", "", ""],
-    ]);
-  };
+  }, [board]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="text-4xl text-center text-white">Tic Tac Toe</div>
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex flex-row items-center justify-center">
-          <div
-            className="w-12 h-12 m-2 text-4xl text-center text-white bg-black cursor-pointer"
-            onClick={() => handleClick(0, 0)}
-          >
-            {board[0][0] === "X" ? (
-              <RxCross1 />
-            ) : board[0][0] === "O" ? (
-              <FaRegCircle />
-            ) : (
-              ""
-            )}
+    <div className="flex flex-col items-center justify-center gap-8 h-screen">
+      <h1 className="text-4xl text-center text-white">Tic Tac Toe</h1>
+      <div className="flex flex-col items-center justify-center gap-4">
+        {board.map((row, i) => (
+          <div className="grid grid-cols-3 gap-4" key={i}>
+            {row.map((cell, j) => (
+              <div
+                className="w-12 h-12 bg-black cursor-pointer text-center text-white"
+                key={j}
+                onClick={() => {
+                  if (cell === "" && winner === null && isHumanTurn) {
+                    let newBoard = [...board];
+                    newBoard[i][j] = player;
+                    setBoard(newBoard);
+                    setPlayer("O");
+                    setIsHumanTurn(false);
+                  }
+                }}
+              >
+                {cell === "X" ? (
+                  <RxCross1 />
+                ) : cell === "O" ? (
+                  <FaRegCircle />
+                ) : (
+                  ""
+                )}
+              </div>
+            ))}
           </div>
-          <div
-            className="w-12 h-12 m-2 text-4xl text-center text-white bg-black cursor-pointer"
-            onClick={() => handleClick(0, 1)}
-          >
-            {board[0][1] === "X" ? (
-              <RxCross1 />
-            ) : board[0][1] === "O" ? (
-              <FaRegCircle />
-            ) : (
-              ""
-            )}
-          </div>
-          <div
-            className="w-12 h-12 m-2 text-4xl text-center text-white bg-black cursor-pointer"
-            onClick={() => handleClick(0, 2)}
-          >
-            {board[0][2] === "X" ? (
-              <RxCross1 />
-            ) : board[0][2] === "O" ? (
-              <FaRegCircle />
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
-        <div className="flex flex-row items-center justify-center">
-          <div
-            className="w-12 h-12 m-2 text-4xl text-center text-white bg-black cursor-pointer"
-            onClick={() => handleClick(1, 0)}
-          >
-            {board[1][0] === "X" ? (
-              <RxCross1 className="align-middle" />
-            ) : board[1][0] === "O" ? (
-              <FaRegCircle className="text-center" />
-            ) : (
-              ""
-            )}
-          </div>
-          <div
-            className="w-12 h-12 m-2 text-4xl text-center text-white bg-black cursor-pointer"
-            onClick={() => handleClick(1, 1)}
-          >
-            {board[1][1] === "X" ? (
-              <RxCross1 />
-            ) : board[1][1] === "O" ? (
-              <FaRegCircle />
-            ) : (
-              ""
-            )}
-          </div>
-          <div
-            className="w-12 h-12 m-2 text-4xl text-center text-white bg-black cursor-pointer"
-            onClick={() => handleClick(1, 2)}
-          >
-            {board[1][2] === "X" ? (
-              <RxCross1 />
-            ) : board[1][2] === "O" ? (
-              <FaRegCircle />
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
-        <div className="flex flex-row items-center justify-center">
-          <div
-            className="w-12 h-12 m-2 text-4xl text-center text-white bg-black cursor-pointer"
-            onClick={() => handleClick(2, 0)}
-          >
-            {board[2][0] === "X" ? (
-              <RxCross1 />
-            ) : board[2][0] === "O" ? (
-              <FaRegCircle />
-            ) : (
-              ""
-            )}
-          </div>
-          <div
-            className="w-12 h-12 m-2 text-4xl text-center text-white bg-black cursor-pointer"
-            onClick={() => handleClick(2, 1)}
-          >
-            {board[2][1] === "X" ? (
-              <RxCross1 />
-            ) : board[2][1] === "O" ? (
-              <FaRegCircle />
-            ) : (
-              ""
-            )}
-          </div>
-          <div
-            className="w-12 h-12 m-2 text-4xl text-center text-white bg-black cursor-pointer"
-            onClick={() => handleClick(2, 2)}
-          >
-            {board[2][2] === "X" ? (
-              <RxCross1 />
-            ) : board[2][2] === "O" ? (
-              <FaRegCircle />
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
+        ))}
       </div>
-      <div className="flex flex-col items-center justify-center">
-        {winner ? (
-          <div className="flex flex-col items-center justify-center">
-            <div className="text-4xl text-center text-white">
-              {winner === "Draw" ? "Draw" : "Winner: " + winner}
-            </div>
-            <div
-              className="w-24 h-12 m-2 text-2xl text-center text-white bg-black cursor-pointer"
-              onClick={() => handleReset()}
-            >
-              Reset
-            </div>
-          </div>
-        ) : (
-          <div className="text-4xl text-center text-white">
-            Next player: {player}
-          </div>
-        )}
+      <div className="info">
+        {winner === null
+          ? isHumanTurn
+            ? "Your turn"
+            : "AI's turn"
+          : winner === "Draw"
+            ? "Draw"
+            : winner === "X"
+              ? "You won"
+              : "AI won"}
       </div>
+      <button
+        className="w-24 h-12 text-2xl bg-black cursor-pointer text-white"
+        onClick={() => {
+          setBoard([
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""],
+          ]);
+          setPlayer("X");
+          setWinner(null);
+          setIsHumanTurn(true);
+        }}
+      >
+        Reset
+      </button>
     </div>
   );
 };
