@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { FaRegCircle } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 
@@ -13,7 +13,8 @@ const TicTacToe = () => {
   ]);
   const [isHumanTurn, setIsHumanTurn] = useState(true);
 
-  const checkWinner = () => {
+  // Wrap checkWinner in the useCallback hook
+  const checkWinner = useCallback(() => {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -40,9 +41,9 @@ const TicTacToe = () => {
     if (board.flat().every((cell) => cell !== "")) {
       setWinner("Draw");
     }
-  };
+  }, [board]);
 
-  const makeAIMove = () => {
+  const makeAIMove = useCallback(() => {
     let emptyCells = [];
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
@@ -61,17 +62,14 @@ const TicTacToe = () => {
       setPlayer("X");
       setIsHumanTurn(true);
     }
-  };
+  }, [board]);
 
   useEffect(() => {
     if (!isHumanTurn && winner === null) {
       makeAIMove();
+      checkWinner();
     }
-  }, [isHumanTurn]);
-
-  useEffect(() => {
-    checkWinner();
-  }, [board]);
+  }, [isHumanTurn, winner, board, makeAIMove, checkWinner]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 h-screen">
