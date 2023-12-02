@@ -6,7 +6,8 @@ const Header = () => {
   return (
     <nav className="overflow-hidden w-screen top-0">
       {/* Header */}
-      <div className="flex flex-row justify-between items-center p-4 bg-purple-300 dark:bg-violet-900 bg-opacity-90 dark:bg-opacity-90 top-0 z-0">
+      {/* Add a border to the bottom of the header */}
+      <div className="flex flex-row justify-between items-center p-4 bg-purple-300 dark:bg-violet-950 bg-opacity-90 dark:bg-opacity-90 border-b-2 border-violet-200 dark:border-violet-900">
         <Link href="/">
           {/* Add the leaderboards png */}
           <Image
