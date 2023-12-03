@@ -138,54 +138,6 @@ const Connect4Game = () => {
     return sequence.every((cell) => cell === sequence[0] && cell !== "");
   };
 
-  // const handleClick = (column) => {
-  //   if (winner || board[0][column]) return;
-
-  //   const updatedBoard = [...board];
-  //   for (let row = BOARD_ROWS - 1; row >= 0; row--) {
-  //     if (!board[row][column]) {
-  //       updatedBoard[row][column] = currentPlayer;
-  //       break;
-  //     }
-  //   }
-
-  //   setBoard(updatedBoard);
-  //   const newWinner = checkWinner();
-  //   if (newWinner) {
-  //     setWinner(newWinner);
-  //   } else {
-  //     setCurrentPlayer('O'); // Set the current player to 'O' for the computer move
-
-  //     // Simulate computer move (random column)
-  //     setTimeout(() => {
-  //       const availableColumns = [];
-  //       for (let col = 0; col < BOARD_COLUMNS; col++) {
-  //         if (!board[0][col]) {
-  //           availableColumns.push(col);
-  //         }
-  //       }
-
-  //       if (availableColumns.length > 0) {
-  //         const randomColumn = availableColumns[Math.floor(Math.random() * availableColumns.length)];
-  //         for (let row = BOARD_ROWS - 1; row >= 0; row--) {
-  //           if (!board[row][randomColumn]) {
-  //             updatedBoard[row][randomColumn] = 'O';
-  //             break;
-  //           }
-  //         }
-
-  //         const computerWinner = checkWinner();
-  //         if (computerWinner) {
-  //           setWinner(computerWinner);
-  //         } else {
-  //           setBoard(updatedBoard);
-  //           setCurrentPlayer('X');
-  //         }
-  //       }
-  //     }, 500); // Adjust the delay as needed
-  //   }
-  // };
-
   const resetGame = () => {
     setBoard([
       ["", "", "", "", "", "", ""],
