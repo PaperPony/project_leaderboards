@@ -153,29 +153,9 @@ const Connect4Game = () => {
   };
 
   return (
-    <div className="justify-center items-center">
-      <div className="bg-white p-4 rounded-md">
-        {board.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex">
-            {row.map((cell, columnIndex) => (
-              <div
-                key={columnIndex}
-                className={`w-16 h-16 flex items-center justify-center border border-black rounded-full cursor-pointer ${
-                  cell === "X"
-                    ? "bg-red-500 text-white"
-                    : cell === "O"
-                      ? "bg-yellow-500 text-black"
-                      : ""
-                }`}
-                onClick={() => handleClick(columnIndex)}
-              >
-                {cell}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <div className="mt-4">
+    <div className="text-center">
+      <h1 className="text-4xl font-bold mb-4">Connect 4</h1>
+      <p className="font-bold text-xl mb-4">
         {winner ? (
           <p className="font-bold text-xl">Winner: {winner}</p>
         ) : (
@@ -183,6 +163,31 @@ const Connect4Game = () => {
             Current Player: {currentPlayer === "X" ? "Red" : "Yellow"}
           </p>
         )}
+      </p>
+      <div className="flex justify-center items-center">
+        <div className="bg-white p-4 rounded-md">
+          {board.map((row, rowIndex) => (
+            <div key={rowIndex} className="flex justify-center">
+              {row.map((cell, columnIndex) => (
+                <div
+                  key={columnIndex}
+                  className={`w-16 h-16 flex items-center justify-center border border-black rounded-full cursor-pointer ${
+                    cell === "X"
+                      ? "bg-red-500 text-white"
+                      : cell === "O"
+                        ? "bg-yellow-500 text-black"
+                        : ""
+                  }`}
+                  onClick={() => handleClick(columnIndex)}
+                >
+                  {cell}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-4">
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded"
           onClick={resetGame}
