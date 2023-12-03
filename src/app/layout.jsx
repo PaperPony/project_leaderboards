@@ -1,5 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Head from "next/head";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +15,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <Head>
+        <title>Project Leaderboards</title>
+        <meta
+          name="keywords"
+          content="leaderboards, games, projects, leaderboard, project leaderboards, project leaderboard"
+        />
+        <meta name="description" content="Play interconnected games." />
+        <meta name="author" content="Areeb and The Areebers" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+      <body className={inter.className}>
+        <Header />
+        <NavBar>{children}</NavBar>
+        <Footer />
+      </body>
     </html>
   );
 }
