@@ -13,7 +13,6 @@ const TicTacToe = () => {
   ]);
   const [isHumanTurn, setIsHumanTurn] = useState(true);
 
-  // Wrap checkWinner in the useCallback hook
   const checkWinner = useCallback(() => {
     const lines = [
       [0, 1, 2],
@@ -65,21 +64,23 @@ const TicTacToe = () => {
   }, [board]);
 
   useEffect(() => {
+    checkWinner();
     if (!isHumanTurn && winner === null) {
-      makeAIMove();
-      checkWinner();
+      setTimeout(() => {
+        makeAIMove();
+      }, 500);
     }
-  }, [isHumanTurn, winner, board, makeAIMove, checkWinner]);
+  }, [isHumanTurn, winner, board, checkWinner, makeAIMove]);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-8 h-screen">
+    <div className="flex justify-center gap-8 items-center flex-col">
       <h1 className="text-4xl text-center text-white">Tic Tac Toe</h1>
       <div className="flex flex-col items-center justify-center gap-4">
         {board.map((row, i) => (
           <div className="grid grid-cols-3 gap-4" key={i}>
             {row.map((cell, j) => (
               <div
-                className="w-12 h-12 bg-black cursor-pointer text-center text-white"
+                className="w-20 h-20 bg-black cursor-pointer text-white flex justify-center items-center text-4xl"
                 key={j}
                 onClick={() => {
                   if (cell === "" && winner === null && isHumanTurn) {
@@ -115,7 +116,7 @@ const TicTacToe = () => {
               : "AI won"}
       </div>
       <button
-        className="w-24 h-12 text-2xl bg-black cursor-pointer text-white"
+        className="px-4 py-2 text-2xl bg-blue-500 cursor-pointer rounded text-white"
         onClick={() => {
           setBoard([
             ["", "", ""],
@@ -127,7 +128,7 @@ const TicTacToe = () => {
           setIsHumanTurn(true);
         }}
       >
-        Reset
+        Reset Game
       </button>
     </div>
   );
