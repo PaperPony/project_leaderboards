@@ -63,11 +63,22 @@ const TicTacToe = () => {
     }
   }, [board]);
 
+  const handleCellClick = (i, j) => {
+    if (board[i][j] === "" && winner === null && isHumanTurn) {
+      let newBoard = [...board];
+      newBoard[i][j] = player;
+      setBoard(newBoard);
+      setPlayer("O");
+      setIsHumanTurn(false);
+      checkWinner();
+    }
+  };
+
   useEffect(() => {
-    checkWinner();
     if (!isHumanTurn && winner === null) {
       setTimeout(() => {
         makeAIMove();
+        checkWinner();
       }, 500);
     }
   }, [isHumanTurn, winner, board, checkWinner, makeAIMove]);
@@ -82,15 +93,7 @@ const TicTacToe = () => {
               <div
                 className="w-20 h-20 bg-black cursor-pointer text-white flex justify-center items-center text-4xl"
                 key={j}
-                onClick={() => {
-                  if (cell === "" && winner === null && isHumanTurn) {
-                    let newBoard = [...board];
-                    newBoard[i][j] = player;
-                    setBoard(newBoard);
-                    setPlayer("O");
-                    setIsHumanTurn(false);
-                  }
-                }}
+                onClick={() => handleCellClick(i, j)}
               >
                 {cell === "X" ? (
                   <RxCross1 />
