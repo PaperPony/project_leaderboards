@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
 
 const BOARD_ROWS = 6;
@@ -17,73 +17,7 @@ const Connect4Game = () => {
   const [winner, setWinner] = useState(null);
   const [isComputerTurn, setIsComputerTurn] = useState(false);
 
-  useEffect(() => {
-    if (isComputerTurn && currentPlayer === "O") {
-      // Simulate computer move after a short delay
-      const computerMoveTimeout = setTimeout(() => {
-        makeComputerMove();
-      }, 500); // Adjust the delay as needed
-
-      // Clean up timeout when component unmounts or when user makes a move
-      return () => clearTimeout(computerMoveTimeout);
-    }
-  }, [isComputerTurn, currentPlayer, board]);
-
-  const makeComputerMove = () => {
-    const updatedBoard = [...board];
-    const availableColumns = [];
-
-    for (let col = 0; col < BOARD_COLUMNS; col++) {
-      if (!board[0][col]) {
-        availableColumns.push(col);
-      }
-    }
-
-    if (availableColumns.length > 0) {
-      const randomColumn =
-        availableColumns[Math.floor(Math.random() * availableColumns.length)];
-
-      for (let row = BOARD_ROWS - 1; row >= 0; row--) {
-        if (!board[row][randomColumn]) {
-          updatedBoard[row][randomColumn] = "O";
-          break;
-        }
-      }
-
-      const computerWinner = checkWinner();
-      if (computerWinner) {
-        setWinner(computerWinner);
-      } else {
-        setBoard(updatedBoard);
-        setCurrentPlayer("X");
-      }
-    }
-
-    setIsComputerTurn(false); // Allow the user to make a move
-  };
-
-  const handleClick = (column) => {
-    if (winner || board[0][column] || isComputerTurn) return;
-
-    const updatedBoard = [...board];
-    for (let row = BOARD_ROWS - 1; row >= 0; row--) {
-      if (!board[row][column]) {
-        updatedBoard[row][column] = currentPlayer;
-        break;
-      }
-    }
-
-    setBoard(updatedBoard);
-    const newWinner = checkWinner();
-    if (newWinner) {
-      setWinner(newWinner);
-    } else {
-      setIsComputerTurn(true); // Prevent the user from making a move until the computer moves
-      setCurrentPlayer("O");
-    }
-  };
-
-  const checkWinner = () => {
+  const checkWinner = useCallback(() => {
     // Check rows
     for (let row = 0; row < BOARD_ROWS; row++) {
       for (let col = 0; col <= BOARD_COLUMNS - 4; col++) {
@@ -132,6 +66,72 @@ const Connect4Game = () => {
     }
 
     return null;
+  }, [board]);
+
+  const makeComputerMove = useCallback(() => {
+    const updatedBoard = [...board];
+    const availableColumns = [];
+
+    for (let col = 0; col < BOARD_COLUMNS; col++) {
+      if (!board[0][col]) {
+        availableColumns.push(col);
+      }
+    }
+
+    if (availableColumns.length > 0) {
+      const randomColumn =
+        availableColumns[Math.floor(Math.random() * availableColumns.length)];
+
+      for (let row = BOARD_ROWS - 1; row >= 0; row--) {
+        if (!board[row][randomColumn]) {
+          updatedBoard[row][randomColumn] = "O";
+          break;
+        }
+      }
+
+      const computerWinner = checkWinner();
+      if (computerWinner) {
+        setWinner(computerWinner);
+      } else {
+        setBoard(updatedBoard);
+        setCurrentPlayer("X");
+      }
+    }
+
+    setIsComputerTurn(false); // Allow the user to make a move
+  }, [board, checkWinner]);
+
+  useEffect(() => {
+    if (isComputerTurn && currentPlayer === "O") {
+      // Simulate computer move after a short delay
+      const computerMoveTimeout = setTimeout(() => {
+        makeComputerMove();
+      }, 500); // Adjust the delay as needed
+
+      // Clean up timeout when component unmounts or when user makes a move
+      return () => clearTimeout(computerMoveTimeout);
+    }
+  }, [isComputerTurn, currentPlayer, board, makeComputerMove]);
+
+  const handleClick = (column) => {
+    if (winner || board[0][column] || isComputerTurn) return;
+
+    const updatedBoard = [...board];
+    for (let row = BOARD_ROWS - 1; row >= 0; row--) {
+      if (!board[row][column]) {
+        updatedBoard[row][column] = currentPlayer;
+        break;
+      }
+    }
+
+    setBoard(updatedBoard);
+    const newWinner = checkWinner();
+    if (newWinner) {
+      setWinner(newWinner);
+    } else {
+      setIsComputerTurn(true); // Prevent the user from making a move until the computer moves
+      setCurrentPlayer("O");
+    }
   };
 
   const checkSequence = (sequence) => {
@@ -155,7 +155,7 @@ const Connect4Game = () => {
   return (
     <div className="text-center">
       <h1 className="text-4xl font-bold mb-4">Connect 4</h1>
-      <p className="font-bold text-xl mb-4">
+      <div className="font-bold text-xl mb-4">
         {winner ? (
           <p className="font-bold text-xl">Winner: {winner}</p>
         ) : (
@@ -163,7 +163,7 @@ const Connect4Game = () => {
             Current Player: {currentPlayer === "X" ? "Red" : "Yellow"}
           </p>
         )}
-      </p>
+      </div>
       <div className="flex justify-center items-center">
         <div className="bg-white p-4 rounded-md">
           {board.map((row, rowIndex) => (
