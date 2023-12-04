@@ -30,85 +30,85 @@ const SnakeGame = () => {
 
   const canvasRef = useRef(null);
 
-  const moveSnake = () => {
-    const head = { ...snake[0] };
-
-    switch (direction) {
-      case "UP":
-        head.y -= 1;
-        break;
-      case "DOWN":
-        head.y += 1;
-        break;
-      case "LEFT":
-        head.x -= 1;
-        break;
-      case "RIGHT":
-        head.x += 1;
-        break;
-      default:
-        break;
-    }
-
-    // Check if the new head position is outside the boundaries
-    if (
-      head.x < 0 ||
-      head.x >= GRID_SIZE ||
-      head.y < 0 ||
-      head.y >= GRID_SIZE
-    ) {
-      setGameOver(true);
-      return;
-    }
-
-    // Check if the new head position is on an obstacle
-    if (
-      obstacles.some(
-        (obstacle) => obstacle.x === head.x && obstacle.y === head.y
-      )
-    ) {
-      setGameOver(true);
-      return;
-    }
-
-    // Check if the new head position collides with the snake's body
-    if (
-      snake
-        .slice(1)
-        .some((segment) => segment.x === head.x && segment.y === head.y)
-    ) {
-      setGameOver(true);
-      return;
-    }
-
-    // Check if the new head position is on the food
-    const ateFood = head.x === food.x && head.y === food.y;
-
-    const newSnake = ateFood
-      ? [{ x: food.x, y: food.y }, ...snake]
-      : [head, ...snake.slice(0, -1)];
-    setSnake(newSnake);
-
-    if (ateFood) {
-      setScore((prevScore) => prevScore + 1);
-      setFood(generateRandomFood());
-    }
-  };
-
-  const checkFood = () => {
-    const head = snake[0];
-
-    // Check if snake eats food
-    if (head.x === food.x && head.y === food.y) {
-      const newSnake = [{ x: food.x, y: food.y }, ...snake];
-      setFood(generateRandomFood());
-      setSnake(newSnake);
-    }
-  };
-
   useEffect(() => {
-    if (gameOver) return;
+    // Function Definitions
+    const moveSnake = () => {
+      const head = { ...snake[0] };
 
+      switch (direction) {
+        case "UP":
+          head.y -= 1;
+          break;
+        case "DOWN":
+          head.y += 1;
+          break;
+        case "LEFT":
+          head.x -= 1;
+          break;
+        case "RIGHT":
+          head.x += 1;
+          break;
+        default:
+          break;
+      }
+
+      // Check if the new head position is outside the boundaries
+      if (
+        head.x < 0 ||
+        head.x >= GRID_SIZE ||
+        head.y < 0 ||
+        head.y >= GRID_SIZE
+      ) {
+        setGameOver(true);
+        return;
+      }
+
+      // Check if the new head position is on an obstacle
+      if (
+        obstacles.some(
+          (obstacle) => obstacle.x === head.x && obstacle.y === head.y
+        )
+      ) {
+        setGameOver(true);
+        return;
+      }
+
+      // Check if the new head position collides with the snake's body
+      if (
+        snake
+          .slice(1)
+          .some((segment) => segment.x === head.x && segment.y === head.y)
+      ) {
+        setGameOver(true);
+        return;
+      }
+
+      // Check if the new head position is on the food
+      const ateFood = head.x === food.x && head.y === food.y;
+
+      const newSnake = ateFood
+        ? [{ x: food.x, y: food.y }, ...snake]
+        : [head, ...snake.slice(0, -1)];
+      setSnake(newSnake);
+
+      if (ateFood) {
+        setScore((prevScore) => prevScore + 1);
+        setFood(generateRandomFood());
+      }
+    };
+
+    const checkFood = () => {
+      const head = snake[0];
+
+      // Check if snake eats food
+      if (head.x === food.x && head.y === food.y) {
+        const newSnake = [{ x: food.x, y: food.y }, ...snake];
+        setFood(generateRandomFood());
+        setSnake(newSnake);
+      }
+    };
+
+    // Event Listeners
     const handleKeyPress = (e) => {
       switch (e.key.toLowerCase()) {
         case "arrowup":
@@ -139,8 +139,10 @@ const SnakeGame = () => {
 
     document.addEventListener("keydown", handleKeyPress);
 
+    // Intervals
     const tickInterval = setInterval(handleTick, TICK_INTERVAL);
 
+    // Clean-up
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
       clearInterval(tickInterval);
@@ -153,36 +155,37 @@ const SnakeGame = () => {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Function Definitions
+    const drawSnake = (ctx) => {
+      const head = snake[0];
+
+      // Draw head
+      ctx.fillStyle = "darkgreen";
+      ctx.fillRect(head.x * 20, head.y * 20, 20, 20);
+
+      // Draw body
+      ctx.fillStyle = "green";
+      snake.slice(1).forEach((segment) => {
+        ctx.fillRect(segment.x * 20, segment.y * 20, 20, 20);
+      });
+    };
+
+    const drawFood = (ctx) => {
+      ctx.fillStyle = "red";
+      ctx.fillRect(food.x * 20, food.y * 20, 20, 20);
+    };
+
+    const drawObstacles = (ctx) => {
+      ctx.fillStyle = "gray";
+      obstacles.forEach((obstacle) => {
+        ctx.fillRect(obstacle.x * 20, obstacle.y * 20, 20, 20);
+      });
+    };
+
     drawSnake(ctx);
     drawFood(ctx);
     drawObstacles(ctx);
   }, [snake, food, obstacles, gameOver]);
-
-  const drawSnake = (ctx) => {
-    const head = snake[0];
-
-    // Draw head
-    ctx.fillStyle = "darkgreen";
-    ctx.fillRect(head.x * 20, head.y * 20, 20, 20);
-
-    // Draw body
-    ctx.fillStyle = "green";
-    snake.slice(1).forEach((segment) => {
-      ctx.fillRect(segment.x * 20, segment.y * 20, 20, 20);
-    });
-  };
-
-  const drawFood = (ctx) => {
-    ctx.fillStyle = "yellow";
-    ctx.fillRect(food.x * 20, food.y * 20, 20, 20);
-  };
-
-  const drawObstacles = (ctx) => {
-    ctx.fillStyle = "gray";
-    obstacles.forEach((obstacle) => {
-      ctx.fillRect(obstacle.x * 20, obstacle.y * 20, 20, 20);
-    });
-  };
 
   const resetGame = () => {
     setSnake([{ x: 0, y: 0 }]);
@@ -194,7 +197,7 @@ const SnakeGame = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen relative overflow-hidden">
+    <div className="flex flex-col items-center justify-center h-screen relative pt-16 overflow-hidden">
       <h1 className="text-4xl text-center text-white">Tic Tac Toe</h1>
       <div className="flex flex-col items-center">
         <p className="text-xl font-bold mb-2">Score: {score}</p>
@@ -202,7 +205,7 @@ const SnakeGame = () => {
           ref={canvasRef}
           width={GRID_SIZE * 20}
           height={GRID_SIZE * 20}
-          className="border-2 border-black bg-black"
+          className="border-2 border-black"
         />
       </div>
       {gameOver && (
