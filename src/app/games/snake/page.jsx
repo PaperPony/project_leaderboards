@@ -27,6 +27,7 @@ const SnakeGame = () => {
   );
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
+  const [gameStart, setGameStart] = useState(false);
 
   const canvasRef = useRef(null);
 
@@ -110,6 +111,10 @@ const SnakeGame = () => {
 
     // Event Listeners
     const handleKeyPress = (e) => {
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+        e.preventDefault();
+      }
+
       switch (e.key.toLowerCase()) {
         case "arrowup":
         case "w":
@@ -150,6 +155,7 @@ const SnakeGame = () => {
   }, [snake, direction, food, gameOver, obstacles]);
 
   useEffect(() => {
+    if (!gameStart || gameOver) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
@@ -185,7 +191,7 @@ const SnakeGame = () => {
     drawSnake(ctx);
     drawFood(ctx);
     drawObstacles(ctx);
-  }, [snake, food, obstacles, gameOver]);
+  }, [snake, food, obstacles, gameOver, gameStart]);
 
   const resetGame = () => {
     setSnake([{ x: 0, y: 0 }]);
@@ -201,12 +207,22 @@ const SnakeGame = () => {
       <h1 className="text-4xl text-center text-white">Snake</h1>
       <div className="flex flex-col ">
         <p className="text-xl font-bold mb-2">Score: {score}</p>
-        <canvas
-          ref={canvasRef}
-          width={GRID_SIZE * 20}
-          height={GRID_SIZE * 20}
-          className="border-2 border-black"
-        />
+        {!gameStart && (
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+            onClick={() => setGameStart(true)}
+          >
+            Start Game
+          </button>
+        )}
+        {gameStart && (
+          <canvas
+            ref={canvasRef}
+            width={GRID_SIZE * 20}
+            height={GRID_SIZE * 20}
+            className="border-2 border-black"
+          />
+        )}
         {gameOver && (
           <div className="relative pt-20 w-full h-full flex items-center justify-center">
             <div className="bg-white p-4 rounded shadow-lg text-center">
