@@ -197,9 +197,9 @@ const SnakeGame = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen relative pt-16 overflow-hidden">
-      <h1 className="text-4xl text-center text-white">Tic Tac Toe</h1>
-      <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center h-screen relative overflow-hidden">
+      <h1 className="text-4xl text-center text-white">Snake</h1>
+      <div className="flex flex-col ">
         <p className="text-xl font-bold mb-2">Score: {score}</p>
         <canvas
           ref={canvasRef}
@@ -207,20 +207,20 @@ const SnakeGame = () => {
           height={GRID_SIZE * 20}
           className="border-2 border-black"
         />
-      </div>
-      {gameOver && (
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-          <div className="bg-white p-4 rounded shadow-lg text-center">
-            <p className="text-3xl font-bold mb-2 text-black">Game Over!</p>
-            <button
-              className="bg-blue-500 text-white py-2 px-4 rounded"
-              onClick={resetGame}
-            >
-              Reset
-            </button>
+        {gameOver && (
+          <div className="relative pt-20 w-full h-full flex items-center justify-center">
+            <div className="bg-white p-4 rounded shadow-lg text-center">
+              <p className="text-3xl font-bold mb-2 text-black">Game Over!</p>
+              <button
+                className="bg-blue-500 text-white py-2 px-4 rounded"
+                onClick={resetGame}
+              >
+                Reset
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
