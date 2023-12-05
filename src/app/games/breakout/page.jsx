@@ -3,12 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 
 const Breakout = () => {
   const canvasRef = useRef(null);
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
+  const [gameStart, setGameStart] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !gameStart) return;
     const context = canvas.getContext("2d");
     let animationFrameId;
 
@@ -180,17 +181,28 @@ const Breakout = () => {
       window.removeEventListener("keyup", movePaddle);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [gameOver]);
+  }, [gameOver, gameStart]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
-      {!gameOver && (
+      {!gameOver && gameStart && (
         <canvas
           ref={canvasRef}
           className="h-full w-full border-2 border-slate-500"
         />
       )}
-      {gameOver && (
+      {gameOver && !gameStart && (
+        <button
+          className="p-2 mt-4 bg-blue-500 text-white rounded"
+          onClick={() => {
+            setGameStart(true);
+            setGameOver(false);
+          }}
+        >
+          Play Game
+        </button>
+      )}
+      {gameOver && gameStart && (
         <button
           className="p-2 mt-4 bg-blue-500 text-white rounded"
           onClick={() => {
