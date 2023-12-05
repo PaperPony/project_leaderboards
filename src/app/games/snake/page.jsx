@@ -36,7 +36,7 @@ const SnakeGame = () => {
   };
 
   useEffect(() => {
-    if (!gameStarted) {
+    if (!gameStarted || gameOver) {
       return;
     }
     const moveSnake = () => {
@@ -67,6 +67,7 @@ const SnakeGame = () => {
         head.y >= GRID_SIZE
       ) {
         setGameOver(true);
+        clearInterval(tickInterval);
         return;
       }
 
@@ -77,6 +78,7 @@ const SnakeGame = () => {
         )
       ) {
         setGameOver(true);
+        clearInterval(tickInterval);
         return;
       }
 
@@ -87,6 +89,7 @@ const SnakeGame = () => {
           .some((segment) => segment.x === head.x && segment.y === head.y)
       ) {
         setGameOver(true);
+        clearInterval(tickInterval);
         return;
       }
 
@@ -117,29 +120,37 @@ const SnakeGame = () => {
 
     // Event Listeners
     const handleKeyPress = (e) => {
-      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
-        e.preventDefault();
-      }
+      let newDirection;
 
       switch (e.key.toLowerCase()) {
         case "arrowup":
         case "w":
-          setDirection("UP");
+          newDirection = "UP";
           break;
         case "arrowdown":
         case "s":
-          setDirection("DOWN");
+          newDirection = "DOWN";
           break;
         case "arrowleft":
         case "a":
-          setDirection("LEFT");
+          newDirection = "LEFT";
           break;
         case "arrowright":
         case "d":
-          setDirection("RIGHT");
+          newDirection = "RIGHT";
           break;
         default:
           break;
+      }
+
+      // Check if the new direction is not opposite to the current direction
+      if (
+        (newDirection === "UP" && direction !== "DOWN") ||
+        (newDirection === "DOWN" && direction !== "UP") ||
+        (newDirection === "LEFT" && direction !== "RIGHT") ||
+        (newDirection === "RIGHT" && direction !== "LEFT")
+      ) {
+        setDirection(newDirection);
       }
     };
 
@@ -161,7 +172,7 @@ const SnakeGame = () => {
   }, [gameStarted, snake, direction, food, gameOver, obstacles]);
 
   useEffect(() => {
-    if (!gameStarted) {
+    if (!gameStarted || gameOver) {
       return;
     }
     const canvas = canvasRef.current;
@@ -207,6 +218,7 @@ const SnakeGame = () => {
     setFood(generateRandomFood());
     setObstacles(Array.from({ length: 5 }, generateRandomObstacle));
     setGameOver(false);
+    setGameStarted(true);
     setScore(0);
   };
 
@@ -215,7 +227,7 @@ const SnakeGame = () => {
       <h1 className="text-4xl text-center text-white">Snake</h1>
       {!gameStarted && (
         <button
-          className="bg-blue-500 text-white py-2 px-4 rounded mt-4"
+          className="bg-green-500 text-white py-2 px-4 rounded mt-4"
           onClick={startGame}
         >
           Start Game
