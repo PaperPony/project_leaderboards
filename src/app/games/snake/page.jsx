@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
 const GRID_SIZE = 20;
 const TICK_INTERVAL = 150; // in milliseconds
@@ -18,7 +18,7 @@ const SnakeGame = () => {
     Array.from({ length: 5 }, generateRandomObstacle)
   );
 
-  const generateRandomFood = () => {
+  const generateRandomFood = useCallback(() => {
     let newFoodPosition;
     do {
       newFoodPosition = {
@@ -36,7 +36,7 @@ const SnakeGame = () => {
       )
     );
     return newFoodPosition;
-  };
+  }, [obstacles, snake]);
 
   const [food, setFood] = useState(generateRandomFood());
   const [gameOver, setGameOver] = useState(false);
@@ -191,7 +191,15 @@ const SnakeGame = () => {
       document.removeEventListener("keydown", handleKeyPress);
       clearInterval(tickInterval);
     };
-  }, [gameStarted, snake, direction, food, gameOver, obstacles]);
+  }, [
+    gameStarted,
+    snake,
+    direction,
+    food,
+    gameOver,
+    obstacles,
+    generateRandomFood,
+  ]);
 
   useEffect(() => {
     if (!gameStarted || gameOver) {
