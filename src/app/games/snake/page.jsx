@@ -5,13 +5,6 @@ const GRID_SIZE = 20;
 const TICK_INTERVAL = 150; // in milliseconds
 
 const SnakeGame = () => {
-  const generateRandomFood = () => {
-    return {
-      x: Math.floor(Math.random() * GRID_SIZE),
-      y: Math.floor(Math.random() * GRID_SIZE),
-    };
-  };
-
   const generateRandomObstacle = () => {
     return {
       x: Math.floor(Math.random() * GRID_SIZE),
@@ -21,10 +14,31 @@ const SnakeGame = () => {
 
   const [snake, setSnake] = useState([{ x: 0, y: 0 }]);
   const [direction, setDirection] = useState("RIGHT");
-  const [food, setFood] = useState(generateRandomFood());
   const [obstacles, setObstacles] = useState(
     Array.from({ length: 5 }, generateRandomObstacle)
   );
+
+  const generateRandomFood = () => {
+    let newFoodPosition;
+    do {
+      newFoodPosition = {
+        x: Math.floor(Math.random() * GRID_SIZE),
+        y: Math.floor(Math.random() * GRID_SIZE),
+      };
+    } while (
+      obstacles.some(
+        (obstacle) =>
+          obstacle.x === newFoodPosition.x && obstacle.y === newFoodPosition.y
+      ) ||
+      snake.some(
+        (segment) =>
+          segment.x === newFoodPosition.x && segment.y === newFoodPosition.y
+      )
+    );
+    return newFoodPosition;
+  };
+
+  const [food, setFood] = useState(generateRandomFood());
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
@@ -39,6 +53,14 @@ const SnakeGame = () => {
     if (!gameStarted || gameOver) {
       return;
     }
+
+    // Disable default behavior of arrow keys
+    document.addEventListener("keydown", (e) => {
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+        e.preventDefault();
+      }
+    });
+
     const moveSnake = () => {
       const head = { ...snake[0] };
 
