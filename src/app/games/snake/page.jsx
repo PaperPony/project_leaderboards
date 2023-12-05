@@ -197,7 +197,7 @@ const SnakeGame = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen relative overflow-hidden">
+    <div className="flex flex-col items-center h-full relative overflow-hidden">
       <h1 className="text-4xl text-center text-white">Snake</h1>
       <div className="flex flex-col ">
         <p className="text-xl font-bold mb-2">Score: {score}</p>
