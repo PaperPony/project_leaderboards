@@ -13,11 +13,11 @@ const NavBar = ({ children }) => {
         <div className="flex flex-col gap-[20%] justify-center items-center h-full text-center">
           {/* Add the home button */}
           <Link
-            href="/games/brickbreaker"
+            href="/games/breakout"
             className="px-[10%] hover:bg-purple-200 dark:hover:bg-violet-900 border-2 border-purple-200 dark:border-violet-900 mx-1 font-bold"
           >
             {" "}
-            Brick Breaker{" "}
+            Breakout{" "}
           </Link>
           <Link
             href="/games/connect4"
@@ -27,11 +27,11 @@ const NavBar = ({ children }) => {
             Connect 4{" "}
           </Link>
           <Link
-            href="/games/spaceinvaders"
+            href="/games/snake"
             className="px-[10%] hover:bg-purple-200 dark:hover:bg-violet-900 border-2 border-purple-200 dark:border-violet-900 mx-1 purple-200 font-bold"
           >
             {" "}
-            Space Invaders{" "}
+            Snake{" "}
           </Link>
           <Link
             href="/games/tictactoe"
