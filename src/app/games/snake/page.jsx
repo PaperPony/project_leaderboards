@@ -171,7 +171,7 @@ const SnakeGame = () => {
     };
 
     const drawFood = (ctx) => {
-      ctx.fillStyle = "red";
+      ctx.fillStyle = "yellow";
       ctx.fillRect(food.x * 20, food.y * 20, 20, 20);
     };
 
