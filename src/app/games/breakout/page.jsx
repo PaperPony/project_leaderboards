@@ -16,26 +16,30 @@ const Breakout = () => {
     // Game variables
     let paddle = {
       x: canvas.width / 2,
-      y: canvas.height - 30,
-      width: 75,
-      height: 10,
+      y: canvas.height - 20,
+      width: 50,
+      height: 1,
       dx: 0,
     };
     let ball = {
-      x: canvas.width / 2,
+      // Randomize the ball's starting position
+      x: Math.floor(Math.random() * (canvas.width - 20)) + 20,
       y: canvas.height - 40,
-      dx: 2,
-      dy: -2,
-      radius: 10,
+      dx: Math.random() < 0.5 ? 1 : -1, // Randomize the ball's starting velocity
+      dy: -1,
+      radius: 5,
     };
     let bricks = [];
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 3; j++) {
+    for (let i = 0; i < 11; i++) {
+      for (let j = 0; j < 5; j++) {
         bricks.push({
-          x: i * (75 + 10),
-          y: j * (20 + 10),
-          width: 75,
-          height: 20,
+          x: i * (23 + 4) + 4,
+          y: j * (5 + 2) + 1,
+          width: 23,
+          height: 5,
+          color: `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(
+            Math.random() * 255
+          )}, ${Math.floor(Math.random() * 255)})`,
         });
       }
     }
@@ -44,7 +48,11 @@ const Breakout = () => {
     const drawBall = () => {
       context.beginPath();
       context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-      context.fillStyle = "#0095DD";
+      // Color is black if dark mode is enabled, white otherwise
+      context.fillStyle = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "#FFFFFF"
+        : "#000000";
       context.fill();
       context.closePath();
 
@@ -54,29 +62,49 @@ const Breakout = () => {
 
       // Bounce off the walls
       if (
+        // Bounce off the left and right walls
         ball.x + ball.dx > canvas.width - ball.radius ||
         ball.x + ball.dx < ball.radius
       ) {
         ball.dx = -ball.dx;
       }
+      // Bounce off the top wall
       if (ball.y + ball.dy < ball.radius) {
         ball.dy = -ball.dy;
       }
       // Bounce off the paddle
-      else if (ball.y + ball.dy > paddle.y) {
-        if (ball.x > paddle.x && ball.x < paddle.x + paddle.width) {
-          ball.dy = -ball.dy;
-        } else if (ball.y + ball.dy > canvas.height - ball.radius) {
-          setGameOver(true);
+      else if (
+        ball.y + ball.dy > paddle.y - ball.radius &&
+        ball.y + ball.dy < paddle.y + paddle.height &&
+        ball.x + ball.dx > paddle.x &&
+        ball.x + ball.dx < paddle.x + paddle.width
+      ) {
+        // Update the ball's horizontal velocity by adding the paddle's horizontal velocity,
+        // but make sure the ball doesn't go faster than 2.5
+        ball.dy = -ball.dy;
+        ball.dx += paddle.dx;
+        if (ball.dx > 2.5) {
+          ball.dx = 2.5;
+        } else if (ball.dx < -2.5) {
+          ball.dx = -2.5;
         }
+      }
+      // Ball is below the paddle
+      if (ball.y + ball.dy > canvas.height - ball.radius) {
+        setGameOver(true);
       }
     };
 
     const drawPaddle = () => {
       context.beginPath();
       context.rect(paddle.x, paddle.y, paddle.width, paddle.height);
-      context.fillStyle = "#0095DD";
-      context.fill();
+      // Color is white if dark mode is enabled, dark otherwise
+      context.strokeStyle = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "#FFFFFF"
+        : "#000000";
+      context.lineWidth = 1;
+      context.stroke();
       context.closePath();
       if (
         paddle.x + paddle.dx > 0 &&
@@ -90,7 +118,7 @@ const Breakout = () => {
       bricks.forEach((brick) => {
         context.beginPath();
         context.rect(brick.x, brick.y, brick.width, brick.height);
-        context.fillStyle = "#0095DD";
+        context.fillStyle = brick.color;
         context.fill();
         context.closePath();
       });
@@ -98,13 +126,26 @@ const Breakout = () => {
 
     const updateScore = () => {
       bricks.forEach((brick, index) => {
+        const prevBallX = ball.x - ball.dx;
+        const prevBallY = ball.y - ball.dy;
+        const hitTopOrBottom =
+          prevBallY < brick.y || prevBallY > brick.y + brick.height;
+        const hitSide =
+          prevBallX < brick.x || prevBallX > brick.x + brick.width;
+
         if (
-          ball.x > brick.x &&
-          ball.x < brick.x + brick.width &&
-          ball.y > brick.y &&
-          ball.y < brick.y + brick.height
+          ball.y + ball.dy > brick.y &&
+          ball.y + ball.dy < brick.y + brick.height &&
+          ball.x + ball.dx > brick.x &&
+          ball.x + ball.dx < brick.x + brick.width
         ) {
-          ball.dy = -ball.dy;
+          if (hitTopOrBottom) {
+            // Ball hits the top or bottom of the brick
+            ball.dy = -ball.dy;
+          } else if (hitSide) {
+            // Ball hits the side of the brick
+            ball.dx = -ball.dx;
+          }
           bricks.splice(index, 1);
           setScore((score) => score + 1);
         }
@@ -116,9 +157,9 @@ const Breakout = () => {
     };
 
     const movePaddle = (event) => {
-      if (event.key === "ArrowLeft") {
+      if (event.key === "ArrowLeft" || event.key === "a") {
         paddle.dx = -2;
-      } else if (event.key === "ArrowRight") {
+      } else if (event.key === "ArrowRight" || event.key === "d") {
         paddle.dx = 2;
       } else {
         paddle.dx = 0;
@@ -132,29 +173,14 @@ const Breakout = () => {
     const resetGame = async () => {
       paddle = {
         x: canvas.width / 2,
-        y: canvas.height - 30,
-        width: 75,
-        height: 10,
-        dx: 2,
+        y: canvas.height - 20,
+        dx: 0,
       };
       ball = {
-        x: canvas.width / 2,
+        // Randomize the ball's starting position
+        x: Math.floor(Math.random() * (canvas.width - 20)) + 20,
         y: canvas.height - 40,
-        dx: 2,
-        dy: -2,
-        radius: 10,
       };
-      bricks = [];
-      for (let i = 0; i < 7; i++) {
-        for (let j = 0; j < 3; j++) {
-          bricks.push({
-            x: i * (75 + 10),
-            y: j * (20 + 10),
-            width: 75,
-            height: 20,
-          });
-        }
-      }
     };
 
     // Game loop
@@ -173,22 +199,26 @@ const Breakout = () => {
     animationFrameId = requestAnimationFrame(gameLoop);
 
     // Event listeners
+    // Prevent default scrolling behavior when the arrow keys are pressed
+    window.addEventListener("keydown", (event) => {
+      event.preventDefault();
+    });
+
     window.addEventListener("keydown", movePaddle);
     window.addEventListener("keyup", movePaddle);
 
     return () => {
-      window.removeEventListener("keydown", movePaddle);
-      window.removeEventListener("keyup", movePaddle);
       cancelAnimationFrame(animationFrameId);
     };
   }, [gameOver, gameStart]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
+      <h2 className="text-4xl font-bold mb-4">Breakout</h2>
       {!gameOver && gameStart && (
         <canvas
           ref={canvasRef}
-          className="h-full w-full border-2 border-slate-500"
+          className="h-full w-full border-4 border-slate-500 dark:border-slate-400 rounded"
         />
       )}
       {gameOver && !gameStart && (
