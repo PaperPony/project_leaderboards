@@ -6,13 +6,26 @@ const BOARD_ROWS = 6;
 const BOARD_COLUMNS = 7;
 
 const Connect4Instructions = () => (
-  <div className="ml-4">
+  <div className="flex justify-center items-center">
     <div className="p-2 rounded">
-      <h2 className="text-lg font-bold mb-2 text-white">How to Play:</h2>
-      <p className="text-sm text-white mb-2">
+      <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
+        How to Play:
+      </h2>
+      <p className="text-sm text-black dark:text-white mb-2">
         Click on a column to drop your disc.
       </p>
-      <p className="text-sm text-white">Connect four discs in a row to win!</p>
+      <p className="text-sm text-black dark:text-white">
+        Connect four discs in a row to win!
+      </p>
+    </div>
+
+    <div className="p-2 rounded">
+      <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
+        Win to Coin Conversion:
+      </h2>
+      <p className="text-sm text-black dark:text-white mb-2">
+        1 win = 16 coins in Coop Guardian
+      </p>
     </div>
   </div>
 );

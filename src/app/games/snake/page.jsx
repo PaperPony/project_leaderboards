@@ -5,15 +5,26 @@ const GRID_SIZE = 20;
 const TICK_INTERVAL = 150; // in milliseconds
 
 const SnakeInstructions = () => (
-  <div className="ml-4">
+  <div className="ml-4 flex space-x-4">
     <div className="p-2 rounded">
-      <h2 className="text-lg font-bold mb-2 text-white">How to Play:</h2>
-      <p className="text-sm text-white mb-2">
+      <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
+        How to Play:
+      </h2>
+      <p className="text-sm text-black dark:text-white mb-2">
         Use arrow keys or WASD to control the snake.
       </p>
-      <p className="text-sm text-white">
+      <p className="text-sm text-black dark:text-white">
         Eat yellow squares to grow and avoid gray obstacles as well as the
         walls.
+      </p>
+    </div>
+
+    <div className="p-2 rounded">
+      <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
+        Point to Coin Conversion:
+      </h2>
+      <p className="text-sm text-black dark:text-white mb-2">
+        1 point = 4 coins in Coop Guardian
       </p>
     </div>
   </div>

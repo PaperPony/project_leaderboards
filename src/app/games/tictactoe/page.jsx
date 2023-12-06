@@ -4,13 +4,26 @@ import { FaRegCircle } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 
 const TicTacToeInstructions = () => (
-  <div className="ml-4">
+  <div className="ml-4 flex space-x-4">
     <div className="p-2 rounded">
-      <h2 className="text-lg font-bold mb-2 text-white">How to Play:</h2>
-      <p className="text-sm text-white mb-2">
+      <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
+        How to Play:
+      </h2>
+      <p className="text-sm text-black dark:text-white mb-2">
         Click on an empty cell to place your X.
       </p>
-      <p className="text-sm text-white">Connect three X in a row to win!</p>
+      <p className="text-sm text-black dark:text-white">
+        Connect three X in a row to win!
+      </p>
+    </div>
+
+    <div className="p-2 rounded">
+      <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
+        Win to Coin Conversion:
+      </h2>
+      <p className="text-sm text-black dark:text-white mb-2">
+        1 win = 8 coins in Coop Guardian
+      </p>
     </div>
   </div>
 );
