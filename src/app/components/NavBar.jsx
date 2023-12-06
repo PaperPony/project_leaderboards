@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const NavBar = ({ children }) => {
   return (
-    <div className="flex flex-row h-screen">
+    <div className="flex flex-row w-screen h-screen">
       {/* Side NavBar */}
       {/* Make the navbar on the side of the screen */}
       {/* Add an outline to the navbar */}

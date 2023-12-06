@@ -4,6 +4,21 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 const GRID_SIZE = 20;
 const TICK_INTERVAL = 150; // in milliseconds
 
+const SnakeInstructions = () => (
+  <div className="ml-4">
+    <div className="p-2 rounded">
+      <h2 className="text-lg font-bold mb-2 text-white">How to Play:</h2>
+      <p className="text-sm text-white mb-2">
+        Use arrow keys or WASD to control the snake.
+      </p>
+      <p className="text-sm text-white">
+        Eat yellow squares to grow and avoid gray obstacles as well as the
+        walls.
+      </p>
+    </div>
+  </div>
+);
+
 const SnakeGame = () => {
   const generateRandomObstacle = () => {
     return {
@@ -254,39 +269,46 @@ const SnakeGame = () => {
 
   return (
     <div className="flex flex-col items-center h-full relative overflow-hidden">
-      <h1 className="text-4xl text-center text-white">Snake</h1>
-      {!gameStarted && (
-        <button
-          className="bg-green-500 text-white py-2 px-4 rounded mt-4"
-          onClick={startGame}
-        >
-          Start Game
-        </button>
-      )}
-      {gameStarted && (
-        <div className="flex flex-col">
-          <p className="text-xl font-bold mb-2">Score: {score}</p>
-          <canvas
-            ref={canvasRef}
-            width={GRID_SIZE * 20}
-            height={GRID_SIZE * 20}
-            className="border-2 border-black"
-          />
-          {gameOver && (
-            <div className="relative pt-20 w-full h-full flex items-center justify-center">
-              <div className="bg-white p-4 rounded shadow-lg text-center">
-                <p className="text-3xl font-bold mb-2 text-black">Game Over!</p>
-                <button
-                  className="bg-blue-500 text-white py-2 px-4 rounded"
-                  onClick={resetGame}
-                >
-                  Reset
-                </button>
-              </div>
+      <div className="flex">
+        <div>
+          <h1 className="text-4xl text-center text-white">Snake</h1>
+          <SnakeInstructions />
+          {!gameStarted && (
+            <button
+              className="bg-blue-500 text-white py-2 px-4 rounded mt-4"
+              onClick={startGame}
+            >
+              Play Game
+            </button>
+          )}
+          {gameStarted && (
+            <div className="flex flex-col">
+              <p className="text-xl font-bold mb-2">Score: {score}</p>
+              <canvas
+                ref={canvasRef}
+                width={GRID_SIZE * 20}
+                height={GRID_SIZE * 20}
+                className="border-2 border-black"
+              />
+              {gameOver && (
+                <div className="relative pt-20 w-full h-full flex items-center justify-center">
+                  <div className="bg-white p-4 rounded shadow-lg text-center">
+                    <p className="text-3xl font-bold mb-2 text-black">
+                      Game Over!
+                    </p>
+                    <button
+                      className="bg-blue-500 text-white py-2 px-4 rounded"
+                      onClick={resetGame}
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

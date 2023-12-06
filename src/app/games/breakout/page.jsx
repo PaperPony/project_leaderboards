@@ -215,6 +215,24 @@ const Breakout = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
       <h2 className="text-4xl font-bold mb-4">Breakout</h2>
+      <div className="ml-4">
+        <div className="p-2 rounded">
+          <h2 className="text-lg font-bold mb-2 text-white">How to Play:</h2>
+          <p className="text-sm text-white mb-2">
+            Use the left and right arrow keys or A and D keys to move the
+            paddle.
+          </p>
+          <p className="text-sm text-white mb-2">
+            Do not let the ball fall below the paddle or else Game Over.
+          </p>
+          <p className="text-sm text-white mb-2">
+            Hit the ball with the paddle to break the bricks.
+          </p>
+          <p className="text-sm text-white mb-2">
+            Break all the bricks to win.
+          </p>
+        </div>
+      </div>
       {!gameOver && gameStart && (
         <canvas
           ref={canvasRef}

@@ -3,6 +3,18 @@ import React, { useEffect, useState, useCallback } from "react";
 import { FaRegCircle } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 
+const TicTacToeInstructions = () => (
+  <div className="ml-4">
+    <div className="p-2 rounded">
+      <h2 className="text-lg font-bold mb-2 text-white">How to Play:</h2>
+      <p className="text-sm text-white mb-2">
+        Click on an empty cell to place your X.
+      </p>
+      <p className="text-sm text-white">Connect three X in a row to win!</p>
+    </div>
+  </div>
+);
+
 const TicTacToe = () => {
   const [player, setPlayer] = useState("X");
   const [winner, setWinner] = useState(null);
@@ -86,6 +98,7 @@ const TicTacToe = () => {
   return (
     <div className="flex justify-center gap-8 items-center flex-col">
       <h1 className="text-4xl text-center text-white">Tic Tac Toe</h1>
+      <TicTacToeInstructions />
       <div className="flex flex-col items-center justify-center gap-4">
         {board.map((row, i) => (
           <div className="grid grid-cols-3 gap-4" key={i}>

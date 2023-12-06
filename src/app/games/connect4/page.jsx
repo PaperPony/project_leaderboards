@@ -4,6 +4,19 @@ import { useState, useEffect } from "react";
 
 const BOARD_ROWS = 6;
 const BOARD_COLUMNS = 7;
+
+const Connect4Instructions = () => (
+  <div className="ml-4">
+    <div className="p-2 rounded">
+      <h2 className="text-lg font-bold mb-2 text-white">How to Play:</h2>
+      <p className="text-sm text-white mb-2">
+        Click on a column to drop your disc.
+      </p>
+      <p className="text-sm text-white">Connect four discs in a row to win!</p>
+    </div>
+  </div>
+);
+
 const Connect4Game = () => {
   const [board, setBoard] = useState([
     ["", "", "", "", "", "", ""],
@@ -155,6 +168,7 @@ const Connect4Game = () => {
   return (
     <div className="text-center">
       <h1 className="text-4xl font-bold mb-4">Connect 4</h1>
+      <Connect4Instructions />
       <div className="font-bold text-xl mb-4">
         {winner ? (
           <p className="font-bold text-xl">Winner: {winner}</p>
