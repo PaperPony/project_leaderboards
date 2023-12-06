@@ -30,9 +30,9 @@ export default function RootLayout({ children }) {
       </Head>
       <body className={inter.className}>
         <Header />
-        <NavBar>
-          <ScoresProvider>{children}</ScoresProvider>
-        </NavBar>
+        <ScoresProvider>
+          <NavBar>{children}</NavBar>
+        </ScoresProvider>
         <Footer />
       </body>
     </html>
