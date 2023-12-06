@@ -4,6 +4,7 @@ import Head from "next/head";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
+import { ScoresProvider } from "./contexts/Scores";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +30,9 @@ export default function RootLayout({ children }) {
       </Head>
       <body className={inter.className}>
         <Header />
-        <NavBar>{children}</NavBar>
+        <NavBar>
+          <ScoresProvider>{children}</ScoresProvider>
+        </NavBar>
         <Footer />
       </body>
     </html>
