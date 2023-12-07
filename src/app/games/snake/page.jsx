@@ -238,6 +238,10 @@ const SnakeGame = () => {
     gameOver,
     obstacles,
     generateRandomFood,
+    setCoins,
+    score,
+    snakeScore,
+    setSnakeScore,
   ]);
 
   useEffect(() => {
@@ -292,10 +296,12 @@ const SnakeGame = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-full relative overflow-hidden">
+    <div className="flex flex-col items-center h-full relative">
       <div className="flex">
         <div>
-          <h1 className="text-4xl text-center text-white">Snake</h1>
+          <h1 className="text-4xl text-center text-black dark:text-white">
+            Snake
+          </h1>
           <SnakeInstructions />
           {!gameStarted && (
             <button
@@ -305,30 +311,31 @@ const SnakeGame = () => {
               Play Game
             </button>
           )}
-          {gameStarted && (
-            <div className="flex flex-col">
+          {gameStarted && !gameOver && (
+            <div className="flex flex-col items-center justify-center flex-grow overflow-hidden">
               <p className="text-xl font-bold mb-2">Score: {score}</p>
               <canvas
                 ref={canvasRef}
                 width={GRID_SIZE * 20}
                 height={GRID_SIZE * 20}
-                className="border-2 border-black"
+                className="border-2 border-black h-full w-full lg:w-2/3 lg:h-2/3"
               />
-              {gameOver && (
-                <div className="relative pt-20 w-full h-full flex items-center justify-center">
-                  <div className="bg-white p-4 rounded shadow-lg text-center">
-                    <p className="text-3xl font-bold mb-2 text-black">
-                      Game Over!
-                    </p>
-                    <button
-                      className="bg-blue-500 text-white py-2 px-4 rounded"
-                      onClick={resetGame}
-                    >
-                      Reset
-                    </button>
-                  </div>
-                </div>
-              )}
+            </div>
+          )}
+          {gameOver && (
+            <div className="relative pt-20 h-full flex items-center justify-center flex-col">
+              <p className="text-3xl font-bold mb-2 text-black dark:text-white">
+                Game Over!
+              </p>
+              <p className="text-xl text-black mb-4 dark:text-white">
+                Your final score is: {score}
+              </p>
+              <button
+                className="bg-blue-500 text-white py-2 px-4 rounded"
+                onClick={resetGame}
+              >
+                Play Again
+              </button>
             </div>
           )}
         </div>

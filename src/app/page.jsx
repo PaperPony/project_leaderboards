@@ -2,8 +2,7 @@
 import { useContext } from "react";
 import { ScoresContext } from "./contexts/Scores.jsx";
 export default function Home() {
-  const { coins, snakeScore, connectFourScore, breakoutScore, ticTacToeScore } =
-    useContext(ScoresContext);
+  const { coins } = useContext(ScoresContext);
 
   return (
     <div>

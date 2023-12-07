@@ -72,7 +72,7 @@ const TicTacToe = () => {
     if (board.flat().every((cell) => cell !== "")) {
       setWinner("Draw");
     }
-  }, [board]);
+  }, [board, setCoins, setTicTacToeScore]);
 
   const makeAIMove = useCallback(() => {
     let emptyCells = [];
