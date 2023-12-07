@@ -1,0 +1,33 @@
+{
+    "brownRat" : {"proto": {"model" : 52012210, "matOverrides": [[0, 52295883]], "height": 0,  "uiOffset": 0, "boundingBox": {"x": 0.6, "y": 0.6, "z": 1.2}, "anim": 52012209}, 
+                "class": "Rat", "speed": 50, "harm": 2, "defense": 5, "immunities": [],  "worth": 1},
+    
+    "blackRat" : {"proto": {"model" : 52012210, "matOverrides": [[0, 51881129]], "height": 0,  "uiOffset": 0, "boundingBox": {"x": 0.6, "y": 0.6, "z": 1.2}, "anim": 52012209}, 
+                "class": "Rat", "speed": 35, "harm": 3, "defense": 20, "immunities": [],  "worth": 2},
+    
+    "whiteRat" : {"proto": {"model" : 52012210, "matOverrides": [[0, 51881127]], "height": 0,  "uiOffset": 0, "boundingBox": {"x": 0.6, "y": 0.6, "z": 1.2}, "anim": 52012209}, 
+                "class": "Rat", "speed": 85, "harm": 1, "defense": -40, "immunities": [],  "worth": 3, "animSpeed": 1.7},
+                
+    "grayOpossum" : {"proto": {"model" : 52290470, "matOverrides": [[0, 51881127], [1, 52214437]], "height": 0.5,  "uiOffset": 0, "boundingBox": {"x": 1, "y": 0.8, "z": 2}, 
+                "anim": 52290472}, 
+                "class": "Opossum", "speed": 60, "harm": 5, "defense": 20, "immunities": [],  "worth": 5, "animSpeed": 1.3},
+                
+    "orangeOpossum" : {"proto": {"model" : 52290470, "matOverrides": [], "height": 0.5,  "uiOffset": 0, "boundingBox": {"x": 1, "y": 0.8, "z": 2}, "anim": 52290472}, 
+                "class": "Opossum", "speed": 50, "harm": 5, "defense": 35, "immunities": [],  "worth": 5, "splitter": {"amount": 2, "callName": "grayOpossum", "distance": 6}},
+    
+    "skunk" : {"proto": {"model" : 52290872, "matOverrides": [], "height": 1,  "uiOffset": 4, "boundingBox": {"x": 2, "y": 1.5, "z": 3}, "anim": 52298917}, 
+                "class": "Skunk", "speed": 30, "harm": 5, "defense": 75, "immunities": [],  "worth": 10},
+    
+    "blueJay" : {"proto": {"model" : 159773173, "matOverrides": [], "height": 25,  "uiOffset": 4, "boundingBox": {"x": 3, "y": 2.5, "z": 3}, "anim": 52291162}, 
+                "class": "Bird", "speed": 60, "harm": 5, "defense": 75, "immunities": [],  "worth": 10},
+                
+    "cardinal" : {"proto": {"model" : 52291163, "matOverrides": [[0, 51882412]], "height": 25,  "uiOffset": 4, "boundingBox": {"x": 3, "y": 2.5, "z": 3}, "anim": 52291162, 
+                    "animSpeed": 2}, 
+                "class": "Bird", "speed": 50, "harm": -10, "defense": 50, "immunities": [],  "worth": 10, "splitter": {"amount": 3, "callName": "blueJay", "distance": 10}},
+                
+    "raccoon" : {"proto": {"model" : 52291371, "matOverrides": [], "height": 1,  "uiOffset": 4, "boundingBox": {"x": 2, "y": 1.5, "z": 3}, "anim": 52291370}, 
+                "class": "Raccoon", "speed": 65, "harm": 5, "defense": 75, "immunities": [],  "worth": 10},
+                
+    "crow" : {"proto": {"model" : 52290872, "matOverrides": [], "height": 5,  "uiOffset": 4, "boundingBox": {"x": 2, "y": 1.5, "z": 3}, "anim": 52298917}, 
+                "class": "Bird", "speed": 30, "harm": 5, "defense": 75, "immunities": [],  "worth": 10}
+}

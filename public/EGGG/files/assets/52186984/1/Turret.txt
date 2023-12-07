@@ -1,0 +1,13 @@
+{
+    "name" : "Eggshell Turret", 
+    "canSell": true,
+    "sellBack": 30,
+    "upgrades": [
+        {"name": "Rangefinder", "description": "Increased detection range", "cost": 100, "owned": false},
+        {"name": "Panic Overdrive", "description": "Sustained fire increases rate of fire", "cost": 200, "owned": false},
+        {"name": "Shell Frags", "description": "Eggshells split on impact and do AOE damage", "cost": 100, "owned": false},
+        {"name": "Rotting Shells", "description": "Eggshells inflict a corrosive effect on enemies", "cost": 100, "owned": false, "linkList": [4, 5]},
+        {"name": "Leaky Shells", "description": "Eggshells drip yolk and slow targets", "cost": 100, "owned": false, "linkList": [3, 5]},
+        {"name": "Mortality Shells", "description": "Each kill makes the next 6 shots slower, high damage shots", "cost": 100, "owned": false, "linkList": [3, 4]}
+    ]
+}

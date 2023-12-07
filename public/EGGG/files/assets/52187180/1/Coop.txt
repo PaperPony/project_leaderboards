@@ -1,0 +1,8 @@
+{
+    "name" : "Chicken Coop", 
+    "canSell": false,
+    "upgrades": [
+        {"name": "Coop 2.0", "description": "Smarter detection", "cost": 600, "owned": false, "linkNext": false},
+        {"name": "Chicken Farmer", "description": "Buy a Hen", "cost": 200, "owned": "buy", "linkNext": false}    
+    ]
+}
