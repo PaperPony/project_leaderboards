@@ -26,7 +26,6 @@ export default function RootLayout({ children }) {
         <meta name="author" content="Areeb and The Areebers" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        {/*  */}
       </Head>
       <body className={inter.className}>
         <ScoresProvider>
