@@ -204,14 +204,14 @@ const Connect4Game = () => {
           </p>
         )}
       </div>
-      <div className="flex justify-center items-center">
-        <div className="bg-white p-4 rounded-md">
+      <div className="flex justify-center items-center bg-black dark:bg-white rounded-md">
+        <div className="bg-white p-4 rounded-md bg-opacity-0 dark:bg-opacity-0">
           {board.map((row, rowIndex) => (
             <div key={rowIndex} className="flex justify-center">
               {row.map((cell, columnIndex) => (
                 <div
                   key={columnIndex}
-                  className={`w-16 h-16 flex items-center justify-center border border-black rounded-full cursor-pointer ${
+                  className={`w-16 h-16 flex items-center justify-center border border-white dark:border-black rounded-full cursor-pointer ${
                     cell === "X"
                       ? "bg-red-500 text-white"
                       : cell === "O"
@@ -219,6 +219,9 @@ const Connect4Game = () => {
                         : ""
                   }`}
                   onClick={() => handleClick(columnIndex)}
+                  aria-label={`${rowIndex * 7 + columnIndex}`}
+                  tabIndex={0}
+                  role="button"
                 >
                   {cell}
                 </div>
