@@ -4,11 +4,20 @@ import { ScoresContext } from "@/app/contexts/Scores";
 
 const Breakout = () => {
   const canvasRef = useRef(null);
-  const [gameOver, setGameOver] = useState(true);
+  const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [gameStart, setGameStart] = useState(false);
   const { setCoins, breakoutScore, setBreakoutScore } =
     useContext(ScoresContext);
+
+  useEffect(() => {
+    if (score > 0 && !gameOver && gameStart) {
+      // setCoins((prevCoins) => prevCoins + 2);
+      if (score > breakoutScore) {
+        setBreakoutScore(score);
+      }
+    }
+  }, [score, setCoins, breakoutScore, setBreakoutScore, gameStart, gameOver]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -46,13 +55,6 @@ const Breakout = () => {
         });
       }
     }
-
-    const updateCoins = async () => {
-      setCoins((prevCoins) => prevCoins + 2);
-      if (score > breakoutScore) {
-        setBreakoutScore(score);
-      }
-    };
 
     // Game functions
     const drawBall = () => {
@@ -134,7 +136,7 @@ const Breakout = () => {
       });
     };
 
-    const updateScore = () => {
+    const updateScore = async () => {
       bricks.forEach((brick, index) => {
         const prevBallX = ball.x - ball.dx;
         const prevBallY = ball.y - ball.dy;
@@ -157,11 +159,8 @@ const Breakout = () => {
             ball.dx = -ball.dx;
           }
           bricks.splice(index, 1);
-          setScore((score) => score + 1);
-          if (score > breakoutScore) {
-            setBreakoutScore(score);
-          }
-          updateCoins();
+          setScore((prevScore) => prevScore + 1);
+          setCoins((prevCoins) => prevCoins + 2);
         }
       });
 
@@ -224,7 +223,7 @@ const Breakout = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [gameOver, gameStart, setCoins, breakoutScore, setBreakoutScore]);
+  }, [gameOver, gameStart, setCoins]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
@@ -265,7 +264,7 @@ const Breakout = () => {
           className="h-full w-full border-4 border-slate-500 dark:border-slate-400 rounded"
         />
       )}
-      {gameOver && !gameStart && (
+      {!gameOver && !gameStart && (
         <button
           className="p-2 mt-4 bg-blue-500 text-white rounded"
           onClick={() => {
