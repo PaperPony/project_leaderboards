@@ -47,6 +47,13 @@ const Breakout = () => {
       }
     }
 
+    const updateCoins = async () => {
+      setCoins((prevCoins) => prevCoins + 2);
+      if (score > breakoutScore) {
+        setBreakoutScore(score);
+      }
+    };
+
     // Game functions
     const drawBall = () => {
       context.beginPath();
@@ -151,6 +158,7 @@ const Breakout = () => {
           }
           bricks.splice(index, 1);
           setScore((score) => score + 1);
+          updateCoins();
         }
       });
 
@@ -213,17 +221,7 @@ const Breakout = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [gameOver, gameStart]);
-
-  // This effect runs when the score changes
-  useEffect(() => {
-    if (score > 0) {
-      setCoins((coins) => coins + 2);
-      if (score > breakoutScore) {
-        setBreakoutScore(score);
-      }
-    }
-  }, [score, setCoins, breakoutScore, setBreakoutScore]);
+  }, [gameOver, gameStart, setCoins, breakoutScore, setBreakoutScore]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
