@@ -1,0 +1,12 @@
+{
+    "name" : "Feather Slicer", 
+    "canSell": true,
+    "sellBack": 20,
+    "upgrades": [
+        {"name": "Knife Trick", "description": "Increased reaction speed and rate of fire", "cost": 100, "owned": false},
+        {"name": "Velocity Adjuster", "description": "Increases feather travel speed and distance", "cost": 100, "owned": false},
+        {"name": "Buzzsaw Feathers", "description": "Feathers gain sharp metal coat and overpierce enemies", "cost": 100, "owned": false},
+        {"name": "Return to Sender", "description": "Feathers circle back to slicer", "cost": 100, "owned": false, "linkList": [4]},
+        {"name": "Fork in the Road", "description": "Feathers split a short time after firing", "cost": 100, "owned": false, "linkList": [3]}
+    ]
+}
