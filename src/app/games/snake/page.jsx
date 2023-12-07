@@ -12,7 +12,7 @@ const GRID_SIZE = 20;
 const TICK_INTERVAL = 150; // in milliseconds
 
 const SnakeInstructions = () => (
-  <div className="ml-4 flex space-x-4">
+  <div className="ml-4 flex space-x-4 text-left">
     <div className="p-2 rounded">
       <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
         How to Play:

@@ -7,7 +7,7 @@ const BOARD_ROWS = 6;
 const BOARD_COLUMNS = 7;
 
 const Connect4Instructions = () => (
-  <div className="flex justify-center items-center">
+  <div className="flex justify-center items-center text-left">
     <div className="p-2 rounded">
       <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
         How to Play:

@@ -5,7 +5,7 @@ import { RxCross1 } from "react-icons/rx";
 import { ScoresContext } from "@/app/contexts/Scores";
 
 const TicTacToeInstructions = () => (
-  <div className="ml-4 flex space-x-4">
+  <div className="ml-4 flex space-x-4 text-left">
     <div className="p-2 rounded">
       <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
         How to Play:

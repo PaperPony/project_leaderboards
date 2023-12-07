@@ -229,7 +229,7 @@ const Breakout = () => {
     <div className="flex flex-col items-center justify-center h-full w-full">
       <h2 className="text-4xl font-bold mb-4">Breakout</h2>
       <div className="ml-4 flex space-x-4">
-        <div className="p-2 rounded">
+        <div className="text-left p-2 rounded">
           <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
             How to Play:
           </h2>
@@ -248,7 +248,7 @@ const Breakout = () => {
           </p>
         </div>
 
-        <div className="p-2 rounded">
+        <div className="text-left p-2 rounded">
           <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
             Point to Coin Conversion:
           </h2>
