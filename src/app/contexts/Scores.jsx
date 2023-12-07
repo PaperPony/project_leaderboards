@@ -4,7 +4,7 @@ import { createContext, useState } from "react";
 export const ScoresContext = createContext();
 
 export const ScoresProvider = ({ children }) => {
-  const [coins, setCoins] = useState(0);
+  const [coins, setCoins] = useState(1000);
   const [ticTacToeScore, setTicTacToeScore] = useState(0);
   const [snakeScore, setSnakeScore] = useState(0);
   const [connectFourScore, setConnectFourScore] = useState(0);
