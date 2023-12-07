@@ -1,5 +1,12 @@
 "use client";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
+import { ScoresContext } from "@/app/contexts/Scores";
 
 const GRID_SIZE = 20;
 const TICK_INTERVAL = 150; // in milliseconds
@@ -31,6 +38,8 @@ const SnakeInstructions = () => (
 );
 
 const SnakeGame = () => {
+  const { setCoins, snakeScore, setSnakeScore } = useContext(ScoresContext);
+
   const generateRandomObstacle = () => {
     return {
       x: Math.floor(Math.random() * GRID_SIZE),
@@ -151,6 +160,10 @@ const SnakeGame = () => {
 
       if (ateFood) {
         setScore((prevScore) => prevScore + 1);
+        setCoins((prevCoins) => prevCoins + 4);
+        if (snakeScore < score + 1) {
+          setSnakeScore(score + 1);
+        }
         setFood(generateRandomFood());
       }
     };
