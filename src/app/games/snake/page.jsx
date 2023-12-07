@@ -323,7 +323,7 @@ const SnakeGame = () => {
             </div>
           )}
           {gameOver && (
-            <div className="relative pt-20 h-full flex items-center justify-center flex-col">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
               <p className="text-3xl font-bold mb-2 text-black dark:text-white">
                 Game Over!
               </p>
