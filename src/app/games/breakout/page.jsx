@@ -223,7 +223,7 @@ const Breakout = () => {
         setBreakoutScore(score);
       }
     }
-  }, [score, setCoins, setBreakoutScore]);
+  }, [score, setCoins, breakoutScore, setBreakoutScore]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
