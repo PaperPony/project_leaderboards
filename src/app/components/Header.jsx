@@ -1,8 +1,13 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { PiCoinVerticalLight } from "react-icons/pi";
+import { ScoresContext } from "../contexts/Scores";
 
 const Header = () => {
+  const { coins } = useContext(ScoresContext);
+
   return (
     <nav className="overflow-hidden w-screen top-0">
       {/* Header */}
@@ -22,9 +27,17 @@ const Header = () => {
             </div>
           </Link>
         </div>
-        <h1 className="text-center text-slate-800 dark:text-slate-200 font-bold text-2xl">
-          Welcome To Project Leaderboards!
-        </h1>
+        <div className="flex items-center">
+          <h1 className="text-center text-slate-800 dark:text-slate-200 font-bold text-2xl">
+            Welcome To Project Leaderboards!
+          </h1>
+          <h1>
+            <PiCoinVerticalLight className="text-4xl text-slate-800 dark:text-slate-200" />
+          </h1>
+          <h1 className="text-center text-slate-800 dark:text-slate-200 font-bold text-2xl">
+            {coins}
+          </h1>
+        </div>
       </div>
     </nav>
   );

@@ -1,10 +1,11 @@
 "use client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { FaRegCircle } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
+import { ScoresContext } from "@/app/contexts/Scores";
 
 const TicTacToeInstructions = () => (
-  <div className="ml-4 flex space-x-4">
+  <div className="ml-4 flex space-x-4 text-left">
     <div className="p-2 rounded">
       <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
         How to Play:
@@ -37,6 +38,8 @@ const TicTacToe = () => {
     ["", "", ""],
   ]);
   const [isHumanTurn, setIsHumanTurn] = useState(true);
+  const { setCoins, ticTacToeScore, setTicTacToeScore } =
+    useContext(ScoresContext);
 
   const checkWinner = useCallback(() => {
     const lines = [
@@ -58,6 +61,10 @@ const TicTacToe = () => {
         board[a % 3][Math.floor(a / 3)] === board[c % 3][Math.floor(c / 3)]
       ) {
         setWinner(board[a % 3][Math.floor(a / 3)]);
+        if (board[a % 3][Math.floor(a / 3)] === "X") {
+          setCoins((coins) => coins + 8);
+          setTicTacToeScore((score) => score + 1);
+        }
         return;
       }
     }
@@ -65,7 +72,7 @@ const TicTacToe = () => {
     if (board.flat().every((cell) => cell !== "")) {
       setWinner("Draw");
     }
-  }, [board]);
+  }, [board, setCoins, setTicTacToeScore]);
 
   const makeAIMove = useCallback(() => {
     let emptyCells = [];
@@ -110,16 +117,22 @@ const TicTacToe = () => {
 
   return (
     <div className="flex justify-center gap-8 items-center flex-col">
-      <h1 className="text-4xl text-center text-white">Tic Tac Toe</h1>
+      <h1 className="text-4xl text-center text-black dark:text-white">
+        Tic Tac Toe
+      </h1>
       <TicTacToeInstructions />
       <div className="flex flex-col items-center justify-center gap-4">
         {board.map((row, i) => (
           <div className="grid grid-cols-3 gap-4" key={i}>
             {row.map((cell, j) => (
               <div
-                className="w-20 h-20 bg-black cursor-pointer text-white flex justify-center items-center text-4xl"
+                className="w-20 h-20 bg-black dark:bg-white cursor-pointer text-white dark:text-black flex justify-center items-center text-4xl"
                 key={j}
                 onClick={() => handleCellClick(i, j)}
+                // Label each cell with its number (0-8) for accessibility
+                aria-label={i * 3 + j}
+                tabIndex={0}
+                role="button"
               >
                 {cell === "X" ? (
                   <RxCross1 />

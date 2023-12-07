@@ -4,8 +4,7 @@ import { ScoresContext } from "./contexts/Scores.jsx";
 import { Message, sendMessage} from "./msg.jsx";
 
 export default function Home() {
-  const { coins, snakeScore, connectFourScore, breakoutScore, ticTacToeScore } =
-    useContext(ScoresContext);
+  const { coins } = useContext(ScoresContext);
 
   return (
     <div>

@@ -4,11 +4,20 @@ import { ScoresContext } from "@/app/contexts/Scores";
 
 const Breakout = () => {
   const canvasRef = useRef(null);
-  const [gameOver, setGameOver] = useState(true);
+  const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [gameStart, setGameStart] = useState(false);
   const { setCoins, breakoutScore, setBreakoutScore } =
     useContext(ScoresContext);
+
+  useEffect(() => {
+    if (score > 0 && !gameOver && gameStart) {
+      // setCoins((prevCoins) => prevCoins + 2);
+      if (score > breakoutScore) {
+        setBreakoutScore(score);
+      }
+    }
+  }, [score, setCoins, breakoutScore, setBreakoutScore, gameStart, gameOver]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -127,7 +136,7 @@ const Breakout = () => {
       });
     };
 
-    const updateScore = () => {
+    const updateScore = async () => {
       bricks.forEach((brick, index) => {
         const prevBallX = ball.x - ball.dx;
         const prevBallY = ball.y - ball.dy;
@@ -150,11 +159,13 @@ const Breakout = () => {
             ball.dx = -ball.dx;
           }
           bricks.splice(index, 1);
-          setScore((score) => score + 1);
+          setScore((prevScore) => prevScore + 1);
+          setCoins((prevCoins) => prevCoins + 2);
         }
       });
 
       if (bricks.length === 0) {
+        setBreakoutScore(55);
         setGameOver(true);
       }
     };
@@ -213,23 +224,13 @@ const Breakout = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [gameOver, gameStart]);
-
-  // This effect runs when the score changes
-  useEffect(() => {
-    if (score > 0) {
-      setCoins((coins) => coins + 2);
-      if (score > breakoutScore) {
-        setBreakoutScore(score);
-      }
-    }
-  }, [score, setCoins, breakoutScore, setBreakoutScore]);
+  }, [gameOver, gameStart, setCoins, setBreakoutScore]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
       <h2 className="text-4xl font-bold mb-4">Breakout</h2>
       <div className="ml-4 flex space-x-4">
-        <div className="p-2 rounded">
+        <div className="text-left p-2 rounded">
           <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
             How to Play:
           </h2>
@@ -248,7 +249,7 @@ const Breakout = () => {
           </p>
         </div>
 
-        <div className="p-2 rounded">
+        <div className="text-left p-2 rounded">
           <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
             Point to Coin Conversion:
           </h2>
@@ -264,7 +265,7 @@ const Breakout = () => {
           className="h-full w-full border-4 border-slate-500 dark:border-slate-400 rounded"
         />
       )}
-      {gameOver && !gameStart && (
+      {!gameOver && !gameStart && (
         <button
           className="p-2 mt-4 bg-blue-500 text-white rounded"
           onClick={() => {

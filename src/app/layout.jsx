@@ -29,8 +29,8 @@ export default function RootLayout({ children }) {
         {/*  */}
       </Head>
       <body className={inter.className}>
-        <Header />
         <ScoresProvider>
+          <Header />
           <NavBar>{children}</NavBar>
         </ScoresProvider>
         <Footer />
