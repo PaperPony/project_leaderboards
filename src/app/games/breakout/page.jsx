@@ -158,6 +158,9 @@ const Breakout = () => {
           }
           bricks.splice(index, 1);
           setScore((score) => score + 1);
+          if (score > breakoutScore) {
+            setBreakoutScore(score);
+          }
           updateCoins();
         }
       });
