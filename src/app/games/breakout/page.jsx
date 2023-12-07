@@ -224,7 +224,7 @@ const Breakout = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [gameOver, gameStart, setCoins]);
+  }, [gameOver, gameStart, setCoins, setBreakoutScore]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
