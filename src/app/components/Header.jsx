@@ -13,7 +13,7 @@ const Header = () => {
       {/* Header */}
       <div className="flex flex-row justify-between items-center p-4 bg-purple-300 dark:bg-violet-950 bg-opacity-90 dark:bg-opacity-90 border-b-2 border-violet-200 dark:border-violet-900">
         <div className="flex items-center">
-          <Link href="/">
+          <Link href="/" tabIndex="0">
             <Image
               src="/leaderboards.png"
               width={100}
@@ -21,7 +21,7 @@ const Header = () => {
               alt="leaderboards-logo"
             />
           </Link>
-          <Link href="/">
+          <Link href="/" tabIndex="0">
             <div className="text-slate-800 dark:text-slate-200 font-bold text-2xl hidden md:block ml-4">
               Home
             </div>
@@ -31,9 +31,12 @@ const Header = () => {
           <h1 className="text-center text-slate-800 dark:text-slate-200 font-bold text-2xl">
             Welcome To Project Leaderboards!
           </h1>
-          <h1>
-            <PiCoinVerticalLight className="text-4xl text-slate-800 dark:text-slate-200" />
-          </h1>
+          <div>
+            <PiCoinVerticalLight
+              className="text-4xl text-slate-800 dark:text-slate-200"
+              aria-label="Coin Image"
+            />
+          </div>
           <h1 className="text-center text-slate-800 dark:text-slate-200 font-bold text-2xl">
             {coins}
           </h1>

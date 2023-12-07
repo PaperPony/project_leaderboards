@@ -16,6 +16,7 @@ const NavBar = ({ children }) => {
             <Link
               href="/games/breakout"
               className="px-[10%] hover:bg-purple-200 dark:hover:bg-violet-900 border-2 border-purple-200 dark:border-violet-900 mx-1 font-bold"
+              tabIndex="0"
             >
               {" "}
               Breakout{" "}
@@ -30,6 +31,7 @@ const NavBar = ({ children }) => {
             <Link
               href="/games/connect4"
               className="px-[10%] hover:bg-purple-200 dark:hover:bg-violet-900 border-2 border-purple-200 dark:border-violet-900 mx-1 purple-200 font-bold"
+              tabIndex="0"
             >
               {" "}
               Connect Four{" "}
@@ -44,6 +46,7 @@ const NavBar = ({ children }) => {
             <Link
               href="/games/snake"
               className="px-[10%] hover:bg-purple-200 dark:hover:bg-violet-900 border-2 border-purple-200 dark:border-violet-900 mx-1 purple-200 font-bold"
+              tabIndex="0"
             >
               {" "}
               Snake{" "}
@@ -58,6 +61,7 @@ const NavBar = ({ children }) => {
             <Link
               href="/games/tictactoe"
               className="px-[10%] hover:bg-purple-200 dark:hover:bg-violet-900 border-2 border-purple-200 dark:border-violet-900 mx-1 purple-200 font-bold"
+              tabIndex="0"
             >
               Tic Tac Toe{" "}
             </Link>
