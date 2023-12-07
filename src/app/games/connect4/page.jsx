@@ -1,6 +1,7 @@
 "use client";
 import React, { useCallback } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ScoresContext } from "@/app/contexts/Scores";
 
 const BOARD_ROWS = 6;
 const BOARD_COLUMNS = 7;
@@ -42,6 +43,9 @@ const Connect4Game = () => {
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [winner, setWinner] = useState(null);
   const [isComputerTurn, setIsComputerTurn] = useState(false);
+  const { setCoins, connectFourScore, setConnectFourScore } =
+    useContext(ScoresContext);
+  const [winAdded, setWinAdded] = useState(false);
 
   const checkWinner = useCallback(() => {
     // Check rows
@@ -176,7 +180,16 @@ const Connect4Game = () => {
     setCurrentPlayer("X");
     setWinner(null);
     setIsComputerTurn(false);
+    setWinAdded(false);
   };
+
+  useEffect(() => {
+    if (winner && !winAdded && winner === "X") {
+      setCoins((coins) => coins + 16);
+      setConnectFourScore(connectFourScore + 1);
+      setWinAdded(true);
+    }
+  }, [winner, setCoins, connectFourScore, setConnectFourScore, winAdded]);
 
   return (
     <div className="text-center">
