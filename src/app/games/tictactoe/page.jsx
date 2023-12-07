@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { FaRegCircle } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
+import { ScoresContext } from "@/app/contexts/Scores";
 
 const TicTacToeInstructions = () => (
   <div className="ml-4 flex space-x-4">
@@ -37,6 +38,8 @@ const TicTacToe = () => {
     ["", "", ""],
   ]);
   const [isHumanTurn, setIsHumanTurn] = useState(true);
+  const { setCoins, ticTacToeScore, setTicTacToeScore } =
+    useContext(ScoresContext);
 
   const checkWinner = useCallback(() => {
     const lines = [
@@ -58,6 +61,10 @@ const TicTacToe = () => {
         board[a % 3][Math.floor(a / 3)] === board[c % 3][Math.floor(c / 3)]
       ) {
         setWinner(board[a % 3][Math.floor(a / 3)]);
+        if (board[a % 3][Math.floor(a / 3)] === "X") {
+          setCoins((coins) => coins + 8);
+          setTicTacToeScore((score) => score + 1);
+        }
         return;
       }
     }
