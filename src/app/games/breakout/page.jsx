@@ -1,11 +1,14 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { ScoresContext } from "@/app/contexts/Scores";
 
 const Breakout = () => {
   const canvasRef = useRef(null);
   const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
   const [gameStart, setGameStart] = useState(false);
+  const { setCoins, breakoutScore, setBreakoutScore } =
+    useContext(ScoresContext);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -211,6 +214,16 @@ const Breakout = () => {
       cancelAnimationFrame(animationFrameId);
     };
   }, [gameOver, gameStart]);
+
+  // This effect runs when the score changes
+  useEffect(() => {
+    if (score > 0) {
+      setCoins((coins) => coins + 2);
+      if (score > breakoutScore) {
+        setBreakoutScore(score);
+      }
+    }
+  }, [score, setCoins, setBreakoutScore]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
