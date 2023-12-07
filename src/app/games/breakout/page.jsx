@@ -165,6 +165,7 @@ const Breakout = () => {
       });
 
       if (bricks.length === 0) {
+        setBreakoutScore(55);
         setGameOver(true);
       }
     };
