@@ -39,7 +39,7 @@ Coop.prototype.parseMessage = function (evt) {
 
 // update code called every frame
 Coop.prototype.update = function (dt) {
-  if (tick < 3) {
+  if (tick < 7) {
     window.top.postMessage("Playcanvas_Ready", "*");
     tick += 1;
   }
@@ -64,8 +64,6 @@ Coop.prototype.tokenSUB = function (amount) {
 
 Coop.prototype.loadWeb = function (item) {
   result = localStorage.getItem(item);
-  console.log("Found: ");
-  console.log(result);
   return result;
 };
 
