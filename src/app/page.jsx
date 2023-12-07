@@ -6,19 +6,16 @@ import { sendMessage } from "./msg.jsx";
 export default function Home({ children }) {
   const { coins, setCoins } = useContext(ScoresContext);
 
+  // If the coins are updated in the context, send the new coins to the game.
+  // If a message is received from the game, update the coins in the context.
   useEffect(() => {
-    sendMessage({ coins: coins });
-    if (typeof window !== "undefined") {
-      window.addEventListener(
-        "message",
-        function (event) {
-          sendMessage("**Connection Established**");
-          sendMessage({ coins: coins });
-          console.log(event.data);
-        },
-        false
-      );
-    }
+    window.addEventListener("message", function (event) {
+      if (event.data.coins) {
+        setCoins(event.data.coins);
+      } else {
+        sendMessage({ coins: coins });
+      }
+    });
   }, [coins, setCoins]);
 
   return (
