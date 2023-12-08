@@ -25,7 +25,7 @@ export default function Home({ children }) {
         src="./EGGG/index.html"
         allow="autoplay"
         title="Coop Guardian Game"
-        className="w-full sm:h-2/3 lg:h-full"
+        className="w-full sm:h-2/3 lg:h-full border-4 border-black dark:border-white rounded-lg"
       />
     </main>
   );
