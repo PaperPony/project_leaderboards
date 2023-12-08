@@ -1,9 +1,36 @@
 "use client";
 import React, { useCallback } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ScoresContext } from "@/app/contexts/Scores";
 
 const BOARD_ROWS = 6;
 const BOARD_COLUMNS = 7;
+
+const Connect4Instructions = () => (
+  <div className="flex justify-center items-center text-left">
+    <div className="p-2 rounded">
+      <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
+        How to Play:
+      </h2>
+      <p className="text-sm text-black dark:text-white mb-2">
+        Click on a column to drop your disc.
+      </p>
+      <p className="text-sm text-black dark:text-white">
+        Connect four discs in a row to win!
+      </p>
+    </div>
+
+    <div className="p-2 rounded">
+      <h2 className="text-lg font-bold mb-2 text-black dark:text-white">
+        Win to Coin Conversion:
+      </h2>
+      <p className="text-sm text-black dark:text-white mb-2">
+        1 win = 16 coins in Coop Guardian
+      </p>
+    </div>
+  </div>
+);
+
 const Connect4Game = () => {
   const [board, setBoard] = useState([
     ["", "", "", "", "", "", ""],
@@ -16,6 +43,9 @@ const Connect4Game = () => {
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [winner, setWinner] = useState(null);
   const [isComputerTurn, setIsComputerTurn] = useState(false);
+  const { setCoins, connectFourScore, setConnectFourScore } =
+    useContext(ScoresContext);
+  const [winAdded, setWinAdded] = useState(false);
 
   const checkWinner = useCallback(() => {
     // Check rows
@@ -150,11 +180,21 @@ const Connect4Game = () => {
     setCurrentPlayer("X");
     setWinner(null);
     setIsComputerTurn(false);
+    setWinAdded(false);
   };
+
+  useEffect(() => {
+    if (winner && !winAdded && winner === "X") {
+      setCoins((coins) => coins + 16);
+      setConnectFourScore(connectFourScore + 1);
+      setWinAdded(true);
+    }
+  }, [winner, setCoins, connectFourScore, setConnectFourScore, winAdded]);
 
   return (
     <div className="text-center">
       <h1 className="text-4xl font-bold mb-4">Connect 4</h1>
+      <Connect4Instructions />
       <div className="font-bold text-xl mb-4">
         {winner ? (
           <p className="font-bold text-xl">Winner: {winner}</p>
@@ -164,14 +204,14 @@ const Connect4Game = () => {
           </p>
         )}
       </div>
-      <div className="flex justify-center items-center">
-        <div className="bg-white p-4 rounded-md">
+      <div className="flex justify-center items-center bg-black dark:bg-white rounded-md">
+        <div className="bg-white p-4 rounded-md bg-opacity-0 dark:bg-opacity-0">
           {board.map((row, rowIndex) => (
             <div key={rowIndex} className="flex justify-center">
               {row.map((cell, columnIndex) => (
                 <div
                   key={columnIndex}
-                  className={`w-16 h-16 flex items-center justify-center border border-black rounded-full cursor-pointer ${
+                  className={`w-16 h-16 flex items-center justify-center border border-white dark:border-black rounded-full cursor-pointer ${
                     cell === "X"
                       ? "bg-red-500 text-white"
                       : cell === "O"
@@ -179,6 +219,9 @@ const Connect4Game = () => {
                         : ""
                   }`}
                   onClick={() => handleClick(columnIndex)}
+                  aria-label={`${rowIndex * 7 + columnIndex}`}
+                  tabIndex={0}
+                  role="button"
                 >
                   {cell}
                 </div>
