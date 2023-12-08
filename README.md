@@ -1,4 +1,4 @@
-# Welcome To Project Leaderboard!
+# Welcome To Project Leaderboards!
 
 We are Project Leaderboards! Our goal is to create a unique and immersive gaming experienced for users of all backgrounds! 
 
