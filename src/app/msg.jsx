@@ -5,7 +5,6 @@ export function Message({ coins }) {
       function (evt) {
         sendMessage("**Connection Established**");
         sendMessage({ coins: coins });
-        console.log(evt.data);
       },
       false
     );
@@ -14,6 +13,5 @@ export function Message({ coins }) {
 }
 
 export function sendMessage(msg) {
-  console.log("msg sent!");
   document.getElementById("app-frame").contentWindow.postMessage(msg);
 }
