@@ -31,7 +31,7 @@ const SnakeInstructions = () => (
         Point to Coin Conversion:
       </h2>
       <p className="text-sm text-black dark:text-white mb-2">
-        1 point = 4 coins in Coop Guardian
+        1 point = 6 coins in Coop Guardian
       </p>
     </div>
   </div>
@@ -160,7 +160,7 @@ const SnakeGame = () => {
 
       if (ateFood) {
         setScore((prevScore) => prevScore + 1);
-        setCoins((prevCoins) => prevCoins + 4);
+        setCoins((prevCoins) => prevCoins + 6);
         if (snakeScore < score + 1) {
           setSnakeScore(score + 1);
         }

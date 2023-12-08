@@ -160,7 +160,7 @@ const Breakout = () => {
           }
           bricks.splice(index, 1);
           setScore((prevScore) => prevScore + 1);
-          setCoins((prevCoins) => prevCoins + 2);
+          setCoins((prevCoins) => prevCoins + 4);
         }
       });
 
@@ -254,7 +254,7 @@ const Breakout = () => {
             Point to Coin Conversion:
           </h2>
           <p className="text-sm text-black dark:text-white mb-2">
-            1 point = 2 coins in Coop Guardian
+            1 point = 4 coins in Coop Guardian
           </p>
         </div>
       </div>
