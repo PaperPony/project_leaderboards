@@ -20,6 +20,9 @@ export default function Home({ children }) {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24 bg-gradient-to-b from-violet-200 to-violet-400 dark:bg-gradient-to-t dark:from-gray-900 dark:to-violet-950 h-full w-full">
+      <h1 className="text-4xl font-bold text-center text-black dark:text-white mb-4">
+        Coop Guardian! Play other games to earn coins to spend here!
+      </h1>
       <iframe
         id="app-frame"
         src="./EGGG/index.html"
