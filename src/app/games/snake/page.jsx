@@ -260,23 +260,43 @@ const SnakeGame = () => {
       // Draw head
       ctx.fillStyle = "darkgreen";
       ctx.fillRect(head.x * 20, head.y * 20, 20, 20);
+      ctx.strokeStyle = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "#FFFFFF"
+        : "#000000";
+      ctx.strokeRect(head.x * 20, head.y * 20, 20, 20);
 
       // Draw body
       ctx.fillStyle = "green";
+      ctx.strokeStyle = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "#FFFFFF"
+        : "#000000";
       snake.slice(1).forEach((segment) => {
         ctx.fillRect(segment.x * 20, segment.y * 20, 20, 20);
+        ctx.strokeRect(segment.x * 20, segment.y * 20, 20, 20);
       });
     };
 
     const drawFood = (ctx) => {
       ctx.fillStyle = "yellow";
       ctx.fillRect(food.x * 20, food.y * 20, 20, 20);
+      ctx.strokeStyle = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "#FFFFFF"
+        : "#000000";
+      ctx.strokeRect(food.x * 20, food.y * 20, 20, 20);
     };
 
     const drawObstacles = (ctx) => {
       ctx.fillStyle = "gray";
+      ctx.strokeStyle = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "#FFFFFF"
+        : "#000000";
       obstacles.forEach((obstacle) => {
         ctx.fillRect(obstacle.x * 20, obstacle.y * 20, 20, 20);
+        ctx.strokeRect(obstacle.x * 20, obstacle.y * 20, 20, 20);
       });
     };
 
@@ -318,7 +338,7 @@ const SnakeGame = () => {
                 ref={canvasRef}
                 width={GRID_SIZE * 20}
                 height={GRID_SIZE * 20}
-                className="border-2 border-black h-full w-full lg:w-2/3 lg:h-2/3"
+                className="border-2 border-black dark:border-white h-full w-full lg:w-2/3 lg:h-2/3"
               />
             </div>
           )}
