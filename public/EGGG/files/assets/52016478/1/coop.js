@@ -44,9 +44,14 @@ Coop.prototype.update = function (dt) {
     tick += 1;
   }
   this.health = pc.math.clamp(this.health, 0, 100);
-  if (this.health < 1 && this.hens > 0) {
-    this.health = 100;
-    this.hens -= 1;
+  if (this.health < 1) {
+    if (this.hens > 1) {
+      this.health = 100;
+      this.hens -= 1;
+    }
+    else{
+      this.app.scenes.changeScene('Round Failed');
+    }
   }
 };
 

@@ -1,70 +1,77 @@
 [
 
     {"spawns": [
-            {"name": "brownRat", "amount": 5, "duration": 3}
+            {"name": "brownRat", "amount": 4, "duration": 3}
         ], 
-        "num": 1, "description": "All right, maverick! Ready to see what you're fightin' this round? Rats! Bring a sword......erm.....I mean a mortar!"},
+        "num": 1, "description": "All right, maverick! We'll start easy! A few rats are gonna break in. Stop 'em cold!"},
         
+    {"spawns": [
+            {"name": "brownRat", "amount": 4, "duration": 2},
+            {"name": "blackRat", "amount": 4, "duration": 2}
+        ], 
+        "num": 2, "description": "Good job! Another set of rats!"},
+
     {"spawns": [
             {"name": "orangeOpossum", "amount": 4, "duration": 2},
             {"name": "raccoon", "amount": 2, "duration": 2}
         ], 
-        "num": 2, "description": "Raccoons! Raccoons are coming!"},
+        "num": 3, "description": "Possums! Raccoons! Possums and Raccoons are coming!"},
     
     {"spawns": [
             {"name": "grayOpossum", "amount": 10, "duration": 2},
-            {"name": "raccoon", "amount": 2, "duration": 2},
-            {"name": "blueJay", "amount": 5, "duration": 3}
+            {"name": "raccoon", "amount": 2, "duration": 2}
         ], 
-        "num": 3, "description": "Couple bluejays! Remember your training!"},
+        "num": 4, "description": "Watch out! Stronger possums coming through!"},
 
     {"spawns": [
-            {"name": "blueJay", "amount": 2, "duration": 2},
-            {"name": "cardinal", "amount": 7, "duration": 4},
-            {"name": "crow", "amount": 1, "duration": 3}
+            {"name": "blueJay", "amount": 5, "duration": 3}
         ], 
-        "num": 4, "description": "All fliers!!!"},
+        "num": 5, "description": "Bluejays on the way! Now these can fly so invest in turrets to stop them!"},
 
     {"spawns": [
             {"name": "grayOpossum", "amount": 10, "duration": 2},
             {"name": "raccoon", "amount": 2, "duration": 2},
             {"name": "blueJay", "amount": 5, "duration": 3}
         ], 
-        "num": 5, "description": "Couple bluejays! Remember your training!"},
+        "num": 6, "description": "A little of everything. Be careful!"},
+
+    {"spawns": [
+            {"name": "cardinal", "amount": 9, "duration": 3}
+        ], 
+        "num": 7, "description": "Cardinals! These grant you health...unless you shoot them"},
+
+    {"spawns": [
+            {"name": "blueJay", "amount": 10, "duration": 3},
+            {"name": "cardinal", "amount": 5, "duration": 4}
+        ], 
+        "num": 8, "description": "All fliers!!!"},
+    
+    {"spawns": [
+            {"name": "blackRat", "amount": 5, "duration": 2},
+            {"name": "grayOpossum", "amount": 6, "duration": 2},
+            {"name": "raccoon", "amount": 5, "duration": 2},
+            {"name": "blueJay", "amount": 7, "duration": 3},
+            {"name": "cardinal", "amount": 3, "duration": 3}
+        ], 
+        "num": 9, "description": "Everything is coming! Remember your training!"},
+    
+    {"spawns": [
+            {"name": "skunk", "amount": 3, "duration": 2}
+        ], 
+        "num": 10, "description": "Skunk!!! They're very thick. Feather slicers recommended"},
+    
+    {"spawns": [
+            {"name": "grayOpossum", "amount": 10, "duration": 2},
+            {"name": "raccoon", "amount": 2, "duration": 2},
+            {"name": "blueJay", "amount": 5, "duration": 3}
+        ], 
+        "num": 11, "description": "Couple bluejays! Remember your training!"},
 
     {"spawns": [
             {"name": "grayOpossum", "amount": 10, "duration": 2},
             {"name": "raccoon", "amount": 2, "duration": 2},
             {"name": "blueJay", "amount": 5, "duration": 3}
         ], 
-        "num": 6, "description": "Couple bluejays! Remember your training!"},
-    
-    {"spawns": [
-            {"name": "grayOpossum", "amount": 10, "duration": 2},
-            {"name": "raccoon", "amount": 2, "duration": 2},
-            {"name": "blueJay", "amount": 5, "duration": 3}
-        ], 
-        "num": 7, "description": "Couple bluejays! Remember your training!"},
-    
-    {"spawns": [
-            {"name": "grayOpossum", "amount": 10, "duration": 2},
-            {"name": "raccoon", "amount": 2, "duration": 2},
-            {"name": "blueJay", "amount": 5, "duration": 3}
-        ], 
-        "num": 8, "description": "Couple bluejays! Remember your training!"},
-    
-    {"spawns": [
-            {"name": "grayOpossum", "amount": 10, "duration": 2},
-            {"name": "raccoon", "amount": 2, "duration": 2},
-            {"name": "blueJay", "amount": 5, "duration": 3}
-        ], 
-        "num": 9, "description": "Couple bluejays! Remember your training!"},
-
-    {"spawns": [
-            {"name": "grayOpossum", "amount": 10, "duration": 2},
-            {"name": "raccoon", "amount": 2, "duration": 2},
-            {"name": "blueJay", "amount": 5, "duration": 3}
-        ], 
-        "num": 10, "description": "Couple bluejays! Remember your training!"}
+        "num": 12, "description": "Couple bluejays! Remember your training!"}
 
 ]

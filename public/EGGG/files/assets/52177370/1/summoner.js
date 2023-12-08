@@ -144,7 +144,9 @@ Summoner.prototype.ready = function(mode) {
             if (this.app.root.findByName("Coop").script.coop.towersActive.length < 1){
                 this.cameraEntity.script.clickToHighlight.focusEntity(this.def); 
             }
-            this.app.root.findByName("Coop").script.coop.towersActive.push(this.def);
+            this.def.tags.add("Tower");
+            this.app.root.findByName("Coop").script.coop.towersActive.push(this.app.root.findByGuid(this.def.getGuid()));
+            this.def.recover = {asset_id: this.asset_id, name: this.name, range: this.range, cost: this.cost, position: JSON.stringify(this.def.getPosition()), upgrades: ""};
             this.def = null;
             this.entity.button.active = true;
         }

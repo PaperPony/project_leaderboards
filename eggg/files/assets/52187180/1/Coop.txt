@@ -1,6 +1,0 @@
-{
-    "name" : "Chicken Coop", 
-    "canSell": false,
-    "upgrades": [
-        {"name": "Coop 2.0", "description": "Increased detection range", "cost": 600, "owned": false, "linkNext": false}]
-}
