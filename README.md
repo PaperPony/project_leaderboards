@@ -1,6 +1,6 @@
 # Welcome To Project Leaderboards!
 
-We are Project Leaderboards! Our goal is to create a unique and immersive gaming experienced for users of all backgrounds! 
+We are Project Leaderboards! Our goal is to create a unique and immersive gaming experiences for users of all backgrounds! 
 
 Our website is a collection of interconnected games, allowing users to blend classic game titles with modern gaming experiences!
 
